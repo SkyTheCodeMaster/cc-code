@@ -67,7 +67,7 @@ end
 
 local function setCursorPos(x,y)
   for _,v in pairs(displayOn) do
-    v.blit(x,y)
+    v.setCursorPos(x,y)
   end
 end
 
