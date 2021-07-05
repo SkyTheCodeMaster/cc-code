@@ -1,0 +1,1 @@
+Displays a keypad and asks for a 5 digit code on all monitors in the `displayOn` table.

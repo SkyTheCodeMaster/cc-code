@@ -1,0 +1,26 @@
+{
+  "https://pastebin.com/raw/3LfWxRWh": {
+    "path": "libraries/bigfont.lua",
+    "folder": false
+  },
+  "https://pastebin.com/raw/6UV4qfNF":{
+    "path": "libraries/sha256.lua",
+    "folder": false
+  },
+  "https://raw.githubusercontent.com/SkyTheCodeMaster/cc-code/main/monitor-keypad/main.lua": {
+    "path": "keypad.lua",
+    "folder": false
+  },
+  "https://raw.githubusercontent.com/SkyTheCodeMaster/SkyDocs/main/src/main/misc/button.lua": {
+    "path": "libraries/button.lua",
+    "folder": false
+  },
+  "https://raw.githubusercontent.com/SkyTheCodeMaster/SkyDocs/main/src/main/misc/sUtils.lua": {
+    "path": "libraries/sUtils.lua",
+    "folder": false
+  },
+  "https://raw.githubusercontent.com/SkyTheCodeMaster/cc-code/main/monitor-keypad/keypad.skimg": {
+    "path": "keypad-image.skimg",
+    "folder": false
+  }
+}
