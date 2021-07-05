@@ -127,7 +127,7 @@ button.newButton(5,5,1,1,function() table.insert(passCode,0) end)
 local function cancel()
   passCode = {}
   setCursorPos(1,1)
-  blit("     ","00000","80008")
+  blit("       ","0000000","8000008")
 end
 
 local function accept()
@@ -139,7 +139,7 @@ local function accept()
       setTextColour(colours.green)
       setBackgroundColour(colours.white)
       open()
-      for i=5,0,-1 do
+      for i=3,0,-1 do
         clear()
         writeOn(1,tostring(i))
         sleep(1)
@@ -153,7 +153,7 @@ local function accept()
       clear()
       setTextColour(colours.red)
       close()
-      for i=5,0,-1 do
+      for i=3,0,-1 do
         clear()
         writeOn(1,tostring(i))
         sleep(1)
@@ -180,9 +180,10 @@ while true do
   if #passCode <= 5 then
     setCursorPos(2,1)
     setTextColour(colours.black)
-    setBackgroundColour(colours.grey)
+    setBackgroundColour(colours.lightGrey)
     write(currentCode)
   else
     cancel()
   end
+  sleep(0.1)
 end
