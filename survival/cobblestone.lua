@@ -13,8 +13,12 @@ local function dig()
   if count < maxItems then
     turtle.digDown()
     turtle.dropUp()
-    dug = dug + 1
   end
+  local newCount = 0
+  for k,v in pairs(chest.list()) do
+    newCount = newCount + v.count
+  end
+  if newCount > count then dug = dug + 1 end
 end
 
 -- Setup fancy smancy screen.
@@ -36,4 +40,5 @@ while true do
   term.clearLine(4)
   term.setCursorPos(1,4)
   term.write(tostring(dug))
+  sleep()
 end
