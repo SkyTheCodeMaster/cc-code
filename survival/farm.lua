@@ -88,6 +88,7 @@ while true do
   if data and data.name == cropName and data.state.age == 7 then
     skyrtle.farm.farm(length,width,check)
     after()
+    turtle.select(1)
     term.setBackgroundColour(colours.blue)
     term.setTextColour(colours.white)
     term.clear()
