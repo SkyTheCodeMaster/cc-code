@@ -81,8 +81,8 @@ while true do
     term.setBackgroundColour(colours.red)
     term.setTextColour(colours.white)
     term.clear()
-    drawScreen()
-    os.pullEvent("key")
+    write("no fuel bruh")
+    error("",0)
   end
   local _,data = turtle.inspectDown()
   if data and data.name == cropName and data.state.age == 7 then
