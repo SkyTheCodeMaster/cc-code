@@ -14,7 +14,7 @@ local pipes = {}
 for src,dst in pairs(data) do
   local pipe = itemPipe.newPipe(src)
   for dest,filter in pairs(dst) do
-    pipe.addDestination(dest).setFilter(filterFactory(filter))
+    pipe.addDestination(dest).setFilter(filterFactory(filter[1]))
   end
   table.insert(pipes,pipe.build())
 end
