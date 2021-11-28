@@ -10,15 +10,7 @@ turtle.select(1)
 
 while true do
   turtle.select(1)
-  if turtle.suckUp(9) then
-    turtle.transferTo(2,1)
-    turtle.transferTo(3,1)
-    turtle.transferTo(5,1)
-    turtle.transferTo(6,1)
-    turtle.transferTo(7,1)
-    turtle.transferTo(9,1)
-    turtle.transferTo(10,1)
-    turtle.transferTo(11,1)
+  if turtle.suckUp(1) then
     turtle.craft()
     while not turtle.drop() do
       sleep()
