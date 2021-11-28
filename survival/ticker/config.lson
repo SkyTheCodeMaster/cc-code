@@ -1,0 +1,13 @@
+{
+  ["ironchest:diamond_chest_10"] = {
+    ["ironchest:diamond_chest_9"] = {
+      "minecraft:iron_ingot",
+    },
+    ["ironchest:iron_chest_214"] = {
+      "minecraft:iron_ingot",
+    },
+    ["ironchest:iron_chest_215"] = {
+      "minecraft:iron_ingot",
+    },
+  },
+}
