@@ -3,7 +3,7 @@
 while true do
   turtle.select(1)
   turtle.suck(2)
-  turtle.transferTo(5,1)
+  turtle.transferTo(6,1)
   turtle.craft()
   while not turtle.dropDown() do
     sleep()
