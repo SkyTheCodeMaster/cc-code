@@ -19,6 +19,7 @@ local function process()
         success = true
       end
     end
+
     -- If items were picked up, sort them.
     if success then
       -- Loop the inventory.
@@ -31,12 +32,14 @@ local function process()
           turtle.dropDown()
           -- Add the number of crystals thrown to the count.
           count = count + i.count
+
         -- Else, drop it back down for more time.
         else
           turtle.select(i)
           turtle.drop()
         end
       end
+
     -- If no items were picked up, pick up 512 items (8 stacks) from above the turtle.
     else
       local success = false
@@ -45,6 +48,7 @@ local function process()
           success = true
         end
       end
+
       -- Check if they were picked up.
       if success then
         for i=1,16 do
@@ -54,6 +58,7 @@ local function process()
             turtle.drop(64)
           end
         end
+
       -- If no items were picked up, sleep for 1 second and await new items.
       else
         local idle = true
@@ -77,28 +82,30 @@ end
 local win = window.create(term.current(),1,1,term.getSize())
 
 local function display()
-  -- Set the visibility to false so that changes are buffered, not drawn.
-  win.setVisible(false)
-  
-  win.setBackgroundColour(colours.blue)
-  win.setTextColour(colours.white)
-  win.clear()
+  while true do
+    -- Set the visibility to false so that changes are buffered, not drawn.
+    win.setVisible(false)
+    
+    win.setBackgroundColour(colours.blue)
+    win.setTextColour(colours.white)
+    win.clear()
 
-  win.setCursorPos(1,1)
-  win.write("Crystal Grower v1.0 - Skynet Systems")
+    win.setCursorPos(1,1)
+    win.write("Crystal Grower v1.0 - Skynet Systems")
 
-  win.setCursorPos(1,2)
-  win.write((" "):rep(39))
+    win.setCursorPos(1,2)
+    win.write((" "):rep(39))
 
-  win.setCursorPos(1,3)
-  -- Write the count using string.format
-  win.write(("Processed: %d"):format(count))
+    win.setCursorPos(1,3)
+    -- Write the count using string.format
+    win.write(("Processed: %d"):format(count))
 
-  -- Set the visibility to true so that buffered changes are drawn.
-  win.setVisible(true)
+    -- Set the visibility to true so that buffered changes are drawn.
+    win.setVisible(true)
 
-  -- Now sleep for 10 seconds, this display doesn't need to eat system resources.
-  sleep(10)
+    -- Now sleep for 10 seconds, this display doesn't need to eat system resources.
+    sleep(10)
+  end
 end
 
 parallel.waitForAny(process,display)
