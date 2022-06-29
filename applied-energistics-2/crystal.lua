@@ -30,13 +30,13 @@ local function process()
         if data and data.name:match("seed") then
           turtle.select(i)
           turtle.dropDown()
-          -- Add the number of crystals thrown to the count.
-          count = count + data.count
 
-        -- Else, drop it back down for more time.
+        -- Else, drop it forward to output.
         else
           turtle.select(i)
           turtle.drop()
+          -- Add the number of crystals thrown to the count.
+          count = count + data.count
         end
       end
 
