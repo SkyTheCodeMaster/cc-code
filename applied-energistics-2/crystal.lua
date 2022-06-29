@@ -32,7 +32,7 @@ local function process()
           turtle.dropDown()
 
         -- Else, drop it forward to output.
-        else
+        elseif data then
           turtle.select(i)
           turtle.drop()
           -- Add the number of crystals thrown to the count.
