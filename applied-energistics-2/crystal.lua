@@ -42,32 +42,16 @@ local function process()
 
     -- If no items were picked up, pick up 512 items (8 stacks) from above the turtle.
     else
-      local success = false
       for i=1,8 do
-        if turtle.suckDown(64) then
-          success = true
-        end
+        turtle.suckDown(64)
       end
 
       -- Check if they were picked up.
-      if success then
-        for i=1,16 do
-          -- Loop the inventory, if there is an item in the slot then select it and drop everything.
-          if turtle.getItemDetail(i) then
-            turtle.select(i)
-            turtle.drop(64)
-          end
-        end
-
-      -- If no items were picked up, sleep for 1 second and await new items.
-      else
-        local idle = true
-        while idle do
-          if turtle.suckUp(1) then
-            turtle.dropUp(1)
-            idle = false
-          end
-          sleep(1)
+      for i=1,16 do
+        -- Loop the inventory, if there is an item in the slot then select it and drop everything.
+        if turtle.getItemDetail(i) then
+          turtle.select(i)
+          turtle.dropDown(64)
         end
       end
     end
