@@ -88,7 +88,7 @@ local function display()
     for i=1,#selection do
       local entry = selection[i]
       if entry then
-        win.setCursorPos(3+i)
+        win.setCursorPos(1,3+i)
         win.write(("%s,%s"):format(entry[1],entry[2]))
       end
     end
