@@ -43,7 +43,7 @@ local function process()
     -- If no items were picked up, pick up 512 items (8 stacks) from above the turtle.
     else
       for i=1,8 do
-        turtle.suckDown(64)
+        turtle.suckUp(64)
       end
 
       -- Check if they were picked up.
