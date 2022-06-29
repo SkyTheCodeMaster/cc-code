@@ -56,10 +56,11 @@ local function process()
         end
       -- If no items were picked up, sleep for 1 second and await new items.
       else
-        while true do
+        local idle = true
+        while idle do
           if turtle.suckUp(1) then
             turtle.dropUp(1)
-            break
+            idle = false
           end
           sleep(1)
         end
