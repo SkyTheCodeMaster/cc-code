@@ -58,7 +58,10 @@ local function process()
     if updated then
       for i=lastIndex,#log do
         local entry = log[i]
-        f(entry[1],entry[2])
+        if entry then 
+          f(entry[1],entry[2])
+          lastIndex = i 
+        end
       end
     end
     sleep(WAIT_TIME)
