@@ -31,7 +31,7 @@ local function process()
           turtle.select(i)
           turtle.dropDown()
           -- Add the number of crystals thrown to the count.
-          count = count + i.count
+          count = count + data.count
 
         -- Else, drop it back down for more time.
         else
