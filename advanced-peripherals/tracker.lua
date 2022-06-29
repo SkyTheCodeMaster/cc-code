@@ -20,7 +20,7 @@ local function file(path)
     f.flush()
   end
   return setmetatable({},{
-    __call=fwrite,
+    __call=function(self,...) return fwrite(...) end,
     __index=f,
   })
 end
