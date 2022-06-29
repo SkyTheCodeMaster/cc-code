@@ -82,7 +82,7 @@ local function display()
     win.write("     Tracker v1.0 - Skynet Systems     ")
 
     win.setCursorPos(1,2)
-    win.write((" "):rep(39))
+    win.write(("-"):rep(39))
 
     local selection = slice(log,#log-10)
     for i=1,#selection do

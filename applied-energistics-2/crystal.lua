@@ -78,7 +78,7 @@ local function display()
     win.write("Crystal Grower v1.0 - Skynet Systems")
 
     win.setCursorPos(1,2)
-    win.write((" "):rep(39))
+    win.write(("-"):rep(39))
 
     win.setCursorPos(1,3)
     -- Write the count using string.format
