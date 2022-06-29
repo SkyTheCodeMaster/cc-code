@@ -13,7 +13,12 @@ local count = 0 -- A nice little count on the display.
 local function process()
   while true do
     -- Attempt to pick up 1024 items (16 stacks) from below the turtle.
-    local success = turtle.suckDown(1024)
+    local success = false
+    for i=1,16 do
+      if turtle.suckDown(64) then
+        success = true
+      end
+    end
     -- If items were picked up, sort them.
     if success then
       -- Loop the inventory.
@@ -34,7 +39,12 @@ local function process()
       end
     -- If no items were picked up, pick up 512 items (8 stacks) from above the turtle.
     else
-      local success = turtle.suckUp(512)
+      local success = false
+      for i=1,8 do
+        if turtle.suckDown(64) then
+          success = true
+        end
+      end
       -- Check if they were picked up.
       if success then
         for i=1,16 do
