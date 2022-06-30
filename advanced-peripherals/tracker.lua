@@ -4,9 +4,12 @@ local RANGE = 10 -- Scanner range.
 local PATH = "log.csv" -- Path for the log.
 local DATEFMT = "%F %T" -- The date format to use in the log.
 local WAIT_TIME = 1 -- How many seconds in between each scan.
+local MODEM_CHANNEL = 1354 -- Modem channel to send updates on in format of "LABEL: DATEFMT, Player"
 
 -- NO TOUCHIE
 local pd = peripheral.find("playerDetector")
+
+local modem = peripheral.find("modem")
 
 local function file(path)
   if not fs.exists(path) then
@@ -60,7 +63,11 @@ local function process()
         local entry = log[i]
         if entry then 
           f(entry[1],entry[2])
-          lastIndex = i 
+          lastIndex = i
+          -- Send the log over the modem.
+          if modem then
+            modem.transmit(MODEM_CHANNEL,1,string.format("%s: %s, %s",os.getComputerLabel(),entry[1],entry[2]))
+          end
         end
       end
     end
