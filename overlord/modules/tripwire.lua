@@ -35,6 +35,9 @@ win.setCursorPos(1,2)
 win.write(("-"):rep(w))
 
 local subWin = window.create(win,1,3,w,h-2)
+subWin.setTextColour(colours.white)
+subWin.setBackgroundColour(colours.blue)
+subWin.clear()
 
 local log = {}
 
@@ -59,7 +62,7 @@ local function main()
       print(v)
     end
     term.redirect(oldTerm)
-    
+
     win.setVisible(true)
   end
 end

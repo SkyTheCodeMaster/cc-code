@@ -5,6 +5,9 @@ local PATH = "log.csv" -- Path for the log.
 local DATEFMT = "%F %T" -- The date format to use in the log.
 local WAIT_TIME = 1 -- How many seconds in between each scan.
 local MODEM_CHANNEL = 1354 -- Modem channel to send updates on in format of "LABEL: DATEFMT, Player"
+local WHITELIST = { -- Who to not report
+  ["SkyCrafter0"]=true,
+}
 
 -- NO TOUCHIE
 local pd = peripheral.find("playerDetector")
@@ -51,11 +54,13 @@ local function process()
     local players = pd.getPlayersInRange(RANGE)
     local updated = false
     for k,v in pairs(players) do
-      local time = os.epoch("utc")
-      if (not last[v]) or (last[v] and last[v]+60000<time) then -- If we have seen them before and if they are last spotted more than 60s ago then log them.
-        last[v] = time
-        table.insert(log,{makeTime(),v})
-        updated = true
+      if not whitelist[v] then
+        local time = os.epoch("utc")
+        if (not last[v]) or (last[v] and last[v]+60000<time) then -- If we have seen them before and if they are last spotted more than 60s ago then log them.
+          last[v] = time
+          table.insert(log,{makeTime(),v})
+          updated = true
+        end
       end
     end
     if updated then
