@@ -6,7 +6,7 @@ local w,h = mon.getSize()
 
 local function centerWrite(txt,y,t)
   t = t or term
-  local width, height = t.getSize()
+  local width = t.getSize()
 
   t.setCursorPos(math.ceil((width / 2) - (txt:len() / 2)), y)
   t.write(txt)
