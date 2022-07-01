@@ -1,0 +1,11 @@
+{
+  "https://raw.githubusercontent.com/SkyTheCodeMaster/cc-code/main/overlord/init.lua": {
+    "path":"overlord.lua",
+    "folder":false
+  },
+  "https://github.com/SkyTheCodeMaster/cc-code/tree/main/overlord/modules": {
+    "path":"modules",
+    "folder":true,
+    "recursive":true
+  }
+}
