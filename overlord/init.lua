@@ -1,5 +1,3 @@
-local r = require("cc.require")
-
 local modules = {}
 for _,file in pairs(fs.list("modules")) do
   local f = fs.open(fs.combine("modules",file),"r")
