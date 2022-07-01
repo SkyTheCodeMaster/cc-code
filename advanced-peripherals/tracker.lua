@@ -64,7 +64,7 @@ local function process()
       end
     end
     if updated then
-      for i=lastIndex,#log do
+      for i=lastIndex+1,#log do
         local entry = log[i]
         if entry then 
           f(entry[1],entry[2])
