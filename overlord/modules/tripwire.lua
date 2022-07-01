@@ -5,8 +5,6 @@ local mon = peripheral.wrap("monitor_5")
 
 modem.open(1354)
 
-local win = window.create(mon,1,1,mon.getSize())
-
 local function slice(tbl,first,last)
   first = first or 1
   last = last or #tbl
@@ -24,6 +22,15 @@ local function centerWrite(txt,y,t)
   t.setCursorPos(math.ceil((width / 2) - (txt:len() / 2)), y)
   t.write(txt)
 end
+
+local win = window.create(mon,1,1,mon.getSize())
+win.setTextColour(colours.white)
+win.setBackgroundColour(colours.blue)
+win.clear()
+centerWrite("Reports",1,win)
+    
+win.setCursorPos(1,2)
+win.write(("-"):rep(w))
 
 local w,h = win.getSize()
 
