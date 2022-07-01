@@ -1,7 +1,7 @@
 -- Receives events from advanced-peripherals/tracker.lua
 
 local modem = peripheral.find("modem",function(_,v)return v.isWireless()end)
-local mon = peripheral.find("monitor_5")
+local mon = peripheral.wrap("monitor_5")
 
 modem.open(1354)
 
