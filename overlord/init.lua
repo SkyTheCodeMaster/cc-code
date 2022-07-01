@@ -10,7 +10,7 @@ for _,file in pairs(fs.list("modules")) do
     multishell=multishell,
   }
   env.require,env.package = r.make(env,"/")
-  modules[file] = function() pcall(load(contents,"="..file,"t",env)) end
+  table.insert(modules,function() pcall(load(contents,"="..file,"t",env)) end)
 end
 
 parallel.waitForAll(table.unpack(modules))
