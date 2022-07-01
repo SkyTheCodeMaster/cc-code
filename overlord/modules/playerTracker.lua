@@ -26,8 +26,7 @@ local function main()
     local players = pd.getOnlinePlayers()
     for i,v in ipairs(players) do
       local pos = pd.getPlayerPos(v)
-      mon.setCursorPos(1,3+i)
-      centerWrite(("%s: %d, %d, %d"):format(v,pos.x,pos.y,pos.z))
+      centerWrite(("%s: %d, %d, %d"):format(v,pos.x,pos.y,pos.z),3+i)
     end
 
     sleep(5)
