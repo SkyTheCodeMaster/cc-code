@@ -34,6 +34,7 @@ local w,h = win.getSize()
 win.setCursorPos(1,2)
 win.write(("-"):rep(w))
 
+local subWin = window.create(win,1,3,w,h-2)
 
 local log = {}
 
@@ -49,17 +50,16 @@ local function main()
     win.clear()
 
     centerWrite("Reports",1,win)
-    
+
     win.setCursorPos(1,2)
     win.write(("-"):rep(w))
 
-    local s = slice(log,h-3)
-
-    for i,v in ipairs(s) do 
-      win.setCursorPos(1,i+3)
-      win.write(v)
+    local oldTerm = term.redirect(subWin)
+    for _,v in ipairs(log) do
+      print(v)
     end
-
+    term.redirect(oldTerm)
+    
     win.setVisible(true)
   end
 end
