@@ -28,11 +28,12 @@ win.setTextColour(colours.white)
 win.setBackgroundColour(colours.blue)
 win.clear()
 centerWrite("Reports",1,win)
+
+local w,h = win.getSize()
     
 win.setCursorPos(1,2)
 win.write(("-"):rep(w))
 
-local w,h = win.getSize()
 
 local log = {}
 
