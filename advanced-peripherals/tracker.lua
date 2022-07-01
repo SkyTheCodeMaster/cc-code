@@ -54,7 +54,7 @@ local function process()
     local players = pd.getPlayersInRange(RANGE)
     local updated = false
     for k,v in pairs(players) do
-      if not whitelist[v] then
+      if not WHITELIST[v] then
         local time = os.epoch("utc")
         if (not last[v]) or (last[v] and last[v]+60000<time) then -- If we have seen them before and if they are last spotted more than 60s ago then log them.
           last[v] = time
