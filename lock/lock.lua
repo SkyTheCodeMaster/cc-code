@@ -35,7 +35,7 @@ if not fs.exists("passwd") then
   term.write("Please enter a new password:")
   term.setCursorPos(1,2)
   local newPassword = read("*")
-  local hashword = sha256.pbkdf2(newPassword,"skylock")
+  local hashword = sha256.pbkdf2(newPassword,"skylock",5)
   local f = assert(fs.open("passwd","w"))
   f.write(hashword:toHex())
   f.close()
@@ -72,7 +72,7 @@ while true do
 
   term.setCursorPos(1,4)
   local pw = read("*")
-  local userHash = sha256.pbkdf2(pw,"skylock")
+  local userHash = sha256.pbkdf2(pw,"skylock",5)
   if userHash:toHex() == hash then
     draw(colours.green)
     bf.writeOn(term,1,"Accepted")
