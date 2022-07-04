@@ -58,7 +58,7 @@ local function draw(bg)
   term.setBackgroundColour(bg or colours.blue)
   term.clear()
 
-  centerWrite("Lock v1.0 - Skynet Systems")
+  centerWrite("Lock v1.0 - Skynet Systems",1)
 
   term.setCursorPos(1,2)
   term.write(("-"):rep(51))
