@@ -64,6 +64,8 @@ local function draw(bg)
   term.write(("-"):rep(51))
 end
 
+local oldPE = os.pullEvent
+os.pullEvent = os.pullEventRaw
 while true do
   draw()
 
@@ -77,7 +79,10 @@ while true do
     draw(colours.green)
     bf.writeOn(term,1,"Accepted")
     rs.setOutput(SIDE,true)
+    -- While the door is unlocked we can allow termination for shell access.
+    os.pullEvent = oldPE
     sleep(DELAY)
+    os.pullEvent = os.pullEventRaw
     rs.setOutput(SIDE,false)
   else
     draw(colours.red)
