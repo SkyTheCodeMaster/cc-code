@@ -39,20 +39,15 @@ if tArgs[1] == "setup" then
 end
 
 local displayOn = {
-  ["monitor_442"] = true,
-  ["monitor_441"] = true
+  ["top"] = true,
 }
 
 local function open()
-  rs.setOutput("back",true)
-  sleep(0.5)
-  rs.setOutput("back",false)
+  rs.setOutput("right",true)
 end
 
 local function close()
-  rs.setOutput("top",true)
-  sleep(0.5)
-  rs.setOutput("top",false)
+  rs.setOutput("right",false)
 end
 
 for k in pairs(displayOn) do
@@ -112,16 +107,16 @@ drawSkimg(image)
 local passCode = {}
 
 -- create buttons
-button.newButton(2,3,1,1,function() table.insert(passCode,1) end)
-button.newButton(3,3,1,1,function() table.insert(passCode,2) end)
-button.newButton(4,3,1,1,function() table.insert(passCode,3) end)
-button.newButton(2,4,1,1,function() table.insert(passCode,4) end)
-button.newButton(3,4,1,1,function() table.insert(passCode,5) end)
-button.newButton(4,4,1,1,function() table.insert(passCode,6) end)
-button.newButton(2,5,1,1,function() table.insert(passCode,7) end)
-button.newButton(3,5,1,1,function() table.insert(passCode,8) end)
-button.newButton(4,5,1,1,function() table.insert(passCode,9) end)
-button.newButton(5,5,1,1,function() table.insert(passCode,0) end)
+button.new(2,3,1,1,function() table.insert(passCode,1) end)
+button.new(3,3,1,1,function() table.insert(passCode,2) end)
+button.new(4,3,1,1,function() table.insert(passCode,3) end)
+button.new(2,4,1,1,function() table.insert(passCode,4) end)
+button.new(3,4,1,1,function() table.insert(passCode,5) end)
+button.new(4,4,1,1,function() table.insert(passCode,6) end)
+button.new(2,5,1,1,function() table.insert(passCode,7) end)
+button.new(3,5,1,1,function() table.insert(passCode,8) end)
+button.new(4,5,1,1,function() table.insert(passCode,9) end)
+button.new(5,5,1,1,function() table.insert(passCode,0) end)
 
 
 local function cancel()
@@ -139,49 +134,35 @@ local function accept()
       setTextColour(colours.green)
       setBackgroundColour(colours.white)
       open()
-      for i=3,0,-1 do
+      for i=3,1,-1 do
         clear()
         writeOn(1,tostring(i))
         sleep(1)
       end
-      setTextColour(colours.orange)
-      for i=9,0,-1 do
-        clear()
-        writeOn(1,tostring(i))
-        sleep(1)
-      end
-      clear()
-      setTextColour(colours.red)
       close()
-      for i=3,0,-1 do
-        clear()
-        writeOn(1,tostring(i))
-        sleep(1)
-      end
       clear()
       drawSkimg(image)
     else
-
+      cancel()
     end
     passCode = {}
   end
 end
 
-local buttonAccept = button.newButton(5,4,1,1,accept)
-local buttonCancel = button.newButton(5,3,1,1,cancel)
+local buttonAccept = button.new(5,4,1,1,accept)
+local buttonCancel = button.new(5,3,1,1,cancel)
 
 while true do
   local e = {os.pullEvent()}
   if e[1] == "monitor_touch" then
     e[1] = "mouse_click"
   end
-  button.executeButtons(e)
-  local currentCode = table.concat(passCode)
+  button.exec(e)
   if #passCode <= 5 then
     setCursorPos(2,1)
     setTextColour(colours.black)
     setBackgroundColour(colours.lightGrey)
-    write(currentCode)
+    write(string.rep("*",#passCode))
   else
     cancel()
   end
