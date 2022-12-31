@@ -12,6 +12,7 @@ local function dropComplete()
 end
 
 local function suck()
+  turtle.select(2)
   while turtle.suckUp(64) do end
   dropComplete()
   turtle.select(1)
