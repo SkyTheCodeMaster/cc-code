@@ -1,5 +1,7 @@
 -- Pulls powder from top chest, places in front, mines, pushes to bottom chest.
 
+local chest = peripheral.wrap("top")
+
 local function dropComplete()
   for i=1,16 do
     local data = turtle.getItemDetail(i)
@@ -12,6 +14,7 @@ local function dropComplete()
 end
 
 local function suck()
+  if #chest.list() == 0 then return end
   turtle.select(2)
   while turtle.suckUp(64) do end
   dropComplete()
