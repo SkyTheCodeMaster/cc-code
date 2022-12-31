@@ -3,7 +3,7 @@
 local chest = peripheral.wrap("top")
 
 local function isEmpty()
-  for _,slot in chest.list() do
+  for _,slot in pairs(chest.list()) do
     if slot then return false end
   end
   return true
