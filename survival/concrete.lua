@@ -3,7 +3,7 @@
 local function dropComplete()
   for i=1,16 do
     local data = turtle.getItemDetail(i)
-    if data and data.name.match("minecraft:%a+_concrete$") then
+    if data and data.name:match("minecraft:%a+_concrete$") then
       turtle.select(i)
       turtle.dropDown(64)
     end
@@ -21,7 +21,7 @@ end
 local function process()
   for i=1,16 do
     local data = turtle.getItemDetail(i)
-    if data and data.name.match("minecraft:%a+_concrete_powder") then
+    if data and data.name:match("minecraft:%a+_concrete_powder") then
       turtle.select(i)
       while turtle.getItemCount(i) ~= 0 do
         turtle.place()
