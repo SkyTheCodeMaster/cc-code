@@ -25,6 +25,10 @@ local function process()
     if data and data.name:match("minecraft:%a+_concrete_powder") then
       turtle.select(i)
       while turtle.getItemCount(i) ~= 0 do
+        local data = turtle.getItemDetail(i)
+        if data and data.name:match("minecraft:%a+_concrete$") then
+          break
+        end
         turtle.place()
         turtle.dig()
         turtle.suck()
