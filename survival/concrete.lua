@@ -2,6 +2,13 @@
 
 local chest = peripheral.wrap("top")
 
+local function isEmpty()
+  for _,slot in chest.list() do
+    if slot then return false end
+  end
+  return true
+end
+
 local function dropComplete()
   for i=1,16 do
     local data = turtle.getItemDetail(i)
@@ -14,7 +21,7 @@ local function dropComplete()
 end
 
 local function suck()
-  if #chest.list() == 0 then return end
+  if isEmpty() then return end
   turtle.select(2)
   while turtle.suckUp(64) do end
   dropComplete()
