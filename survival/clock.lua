@@ -15,6 +15,10 @@ local function tick()
   rs.setOutput("bottom",true)
   sleep(0.05)
   rs.setOutput("bottom",false)
+  sleep(0.05)
+  rs.setOutput("bottom",true)
+  sleep(0.05)
+  rs.setOutput("bottom",false)
 end
 
 -- no touchie
