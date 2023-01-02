@@ -66,7 +66,7 @@ end
 
 local function displayManager()
   local win = window.create(term.current(),1,1,term.getSize())
-  local width,height = win.getSize()
+  local width = win.getSize()
   while true do
     win.setVisible(false)
     local fuel,max = turtle.getFuelLevel(),turtle.getFuelLimit()
