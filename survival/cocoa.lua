@@ -71,7 +71,7 @@ local function displayManager()
     win.setVisible(false)
     local fuel,max = turtle.getFuelLevel(),turtle.getFuelLimit()
     local percent = fuel/max*100
-    local harvestsLeft = math.floor(fuel/(height-1)*2)
+    local harvestsLeft = math.floor(fuel/((height-1)*2))
 
     if harvestsLeft > 20 then
       win.setBackgroundColour(colours.blue)
