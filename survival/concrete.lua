@@ -78,7 +78,7 @@ local function displayManager()
   while true do
     win.setVisible(false)
 
-    win.setBackgroundColour(colours.red)
+    win.setBackgroundColour(colours.blue)
     win.setTextColour(colours.white)
     win.clear()
 
