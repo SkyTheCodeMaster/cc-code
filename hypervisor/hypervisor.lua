@@ -32,8 +32,6 @@ local function makeEnvironment(additives)
   return env
 end
 
-local scriptFunc
-
 local function getLocals(coro,raw)
   -- We want to return a proxy table of local names.
   -- This will upon indexing it, use `debug.getupvalue` to get the current state of the local variable.
@@ -43,7 +41,7 @@ local function getLocals(coro,raw)
     local i = 0
     while true do
       i = i + 1
-      local name,value = debug.getupvalue(scriptFunc,i)
+      local name,value = debug.getlocal(coro,1,i)
       if not name then break end
       map[name] = value
     end
@@ -56,9 +54,9 @@ local function getLocals(coro,raw)
     local i = 0
     while true do
       i = i + 1
-      local nam = debug.getupvalue(scriptFunc,i)
+      local nam,value = debug.getlocal(coro,1,i)
       if nam == name then
-        debug.setupvalue(coro,i,value)
+        debug.setlocal(coro,1,i,value)
         return true
       elseif not nam then
         return false
@@ -83,7 +81,7 @@ end
 local scriptCoro
 
 local scriptEnv = makeEnvironment()
-scriptFunc = load(scriptCode,"@hv-script","t",scriptEnv)
+local scriptFunc = load(scriptCode,"@hv-script","t",scriptEnv)
 
 local helperEnv = makeEnvironment({getLocals = function(raw) return getLocals(scriptCoro,raw) end})
 local helperFunc = load(helperCode,"@hv-helper","t",helperEnv)
