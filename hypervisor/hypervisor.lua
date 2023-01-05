@@ -39,7 +39,9 @@ local function getLocals(coro,raw)
   local function getState()
     local map = {}
     local i = 0
-    local func = debug.getinfo(coro, 1, "f").func
+    local a = 0
+    repeat a = a + 1 until debug.getinfo(coro, a, "S").what == "main"
+    local func = debug.getinfo(coro,a,"f").func
     while true do
       i = i + 1
       local name,value = debug.getupvalue(func,i)
@@ -53,7 +55,10 @@ local function getLocals(coro,raw)
 
   local function setVariable(name,value)
     local i = 0
-    local func = debug.getinfo(coro, 1, "f").func
+    local a = 0
+    repeat a = a + 1 until debug.getinfo(coro, a, "S").what == "main"
+    local func = debug.getinfo(coro,a,"f").func
+
     while true do
       i = i + 1
       local nam = debug.getupvalue(func,i)
