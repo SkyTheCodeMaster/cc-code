@@ -1,0 +1,12 @@
+{
+  "https://pastebin.com/raw/GPzf9JSa":{
+    "path": "libraries/chacha20.lua"
+  },
+  "https://raw.githubusercontent.com/SkyTheCodeMaster/cc-code/main/hypervisor/hypervisor.lua": {
+    "path": "hypervisor.lua"
+  },
+  "https://github.com/SkyTheCodeMaster/cc-code/main/hypervisor/libraries": {
+    "path": "libraries",
+    "folder": true
+  }
+}
