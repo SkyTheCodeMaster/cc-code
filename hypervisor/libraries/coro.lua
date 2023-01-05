@@ -47,7 +47,7 @@ local function runCoros()
       if coroutine.status(v.coro) == "dead" then
         coros[k] = nil
       else
-        if not v.filter or v.filter == e[1] then -- If unfiltered, pass all events, if filtered, pass only filter
+        if not v.filter or v.filter == e[1] or e[1] == "terminate" then -- If unfiltered, pass all events, if filtered, pass only filter
           -- Check for active coroutine
             local ok,filter = coroutine.resume(v.coro,table.unpack(e))
             if ok then

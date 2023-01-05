@@ -28,10 +28,11 @@ local function makeEnvironment(additives)
   env.shell = shell
   env.multishell = multishell
   env.require,env.package = req.make(env,"/")
+  setmetatable(env,{__index=_G})
   return env
 end
 
-local function getLocals(coro)
+local function getLocals(coro,raw)
   -- We want to return a proxy table of local names.
   -- This will upon indexing it, use `debug.getupvalue` to get the current state of the local variable.
   
@@ -47,6 +48,8 @@ local function getLocals(coro)
     end
     return map
   end
+
+  if raw then return getState() end
 
   local function setVariable(name,value)
     local i = 0
@@ -82,7 +85,7 @@ local scriptCoro
 local scriptEnv = makeEnvironment()
 local scriptFunc = load(scriptCode,"@hv-script","t",scriptEnv)
 
-local helperEnv = makeEnvironment({getLocals = function() return getLocals(scriptCoro) end})
+local helperEnv = makeEnvironment({getLocals = function(raw) return getLocals(scriptCoro,raw) end})
 local helperFunc = load(helperCode,"@hv-helper","t",helperEnv)
 
 ---@diagnostic disable-next-line: param-type-mismatch
