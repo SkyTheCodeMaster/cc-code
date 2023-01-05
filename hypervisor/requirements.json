@@ -5,7 +5,7 @@
   "https://raw.githubusercontent.com/SkyTheCodeMaster/cc-code/main/hypervisor/hypervisor.lua": {
     "path": "hypervisor.lua"
   },
-  "https://github.com/SkyTheCodeMaster/cc-code/main/hypervisor/libraries": {
+  "https://github.com/SkyTheCodeMaster/cc-code/tree/main/hypervisor/libraries": {
     "path": "libraries",
     "folder": true
   }
