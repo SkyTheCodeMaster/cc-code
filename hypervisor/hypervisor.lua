@@ -3,7 +3,7 @@ local fHelper = assert(fs.open("/helper.lua","r"))
 local helperCode = fHelper.readAll()
 fHelper.close()
 
-local fScript = assert(fs.open("/script.lua"))
+local fScript = assert(fs.open("/script.lua","r"))
 local scriptCode = fScript.readAll()
 fScript.close()
 
