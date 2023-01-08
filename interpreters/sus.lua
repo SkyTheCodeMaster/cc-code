@@ -8,7 +8,7 @@ local pointer = 0
 local lastjmp = 0
 local skip = false
 local spot = 1
-local funcs = {
+local funcs = setmetatable({
   [">"] = function() pointer = pointer + 1 end,
   ["<"] = function() pointer = pointer - 1 end,
   ["+"] = function() memory[pointer] = memory[pointer] + 1 end,
@@ -16,7 +16,7 @@ local funcs = {
   ["$"] = function() lastjmp = spot skip = false if memory[pointer] == 0 then skip = true end end,
   ["!"] = function() if not skip then spot = lastjmp end skip = false end,
   ["|"] = function() write(string.char(memory[pointer])) end
-}
+},{__index=function()return function()end end})
 
 local function split(inputstr)
   local t={}
