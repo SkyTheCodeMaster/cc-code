@@ -21,8 +21,9 @@ local function plant()
       turtle.select(2)
       saplings = saplings + 1
     end
-    kinetic.use()
-    bonemeals = bonemeals + 1
+    if kinetic.use() then
+      bonemeals = bonemeals + 1
+    end
     os.queueEvent("yield")
     os.pullEvent()
   end
