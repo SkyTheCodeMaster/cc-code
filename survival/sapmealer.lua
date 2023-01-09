@@ -23,6 +23,8 @@ local function plant()
     end
     kinetic.use()
     bonemeals = bonemeals + 1
+    os.queueEvent("yield")
+    os.pullEvent()
   end
 end
 
