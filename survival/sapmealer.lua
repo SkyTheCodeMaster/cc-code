@@ -9,10 +9,13 @@ local function plant()
   while true do
     if turtle.getItemCount(1) == 0 then
       turtle.turnLeft()
+      turtle.select(1)
       turtle.suck(64)
+      turtle.select(2)
       turtle.turnRight()
     end
     if turtle.getItemCount(2) == 0 then
+      turtle.select(2)
       turtle.suckDown(64)
     end
     if not turtle.detect() then
