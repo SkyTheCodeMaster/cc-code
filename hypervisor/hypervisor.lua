@@ -41,7 +41,7 @@ local function getLocals(coro,raw)
     local i = 0
     while true do
       i = i + 1
-      local name,value = debug.getlocal(coro,1,i)
+      local name,value = debug.getlocal(coro,2,i)
       if not name then break end
       map[name] = value
     end
@@ -54,9 +54,9 @@ local function getLocals(coro,raw)
     local i = 0
     while true do
       i = i + 1
-      local nam,value = debug.getlocal(coro,1,i)
+      local nam,value = debug.getlocal(coro,2,i)
       if nam == name then
-        debug.setlocal(coro,1,i,value)
+        debug.setlocal(coro,2,i,value)
         return true
       elseif not nam then
         return false
