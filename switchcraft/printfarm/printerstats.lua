@@ -27,7 +27,7 @@ for i,printer in ipairs(printers) do
   end
   rowLength = rowLength + 14
 
-  local win = window.create(monitor,row*14,column*8,14,8)
+  local win = window.create(monitor,column*14+1,row*8+1,14,8)
   local obj = {win=win,printer=printer,id=i,bars={}}
   pstats[#pstats+1] = obj
   column = column + 1
@@ -66,8 +66,12 @@ local function displayStats(obj)
 end
 
 while true do
+  local funcs = {}
   for _,p in pairs(pstats) do
-    displayStats(p)
+    funcs[#funcs+1] = function()
+      displayStats(p)
+    end
   end
+  parallel.waitForAll(table.unpack(funcs))
   sleep(1)
 end
