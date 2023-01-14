@@ -5,6 +5,9 @@ local pg = require("progressbar")
 local monitor = peripheral.wrap("monitor_369") -- yes this is hardcoded.
 
 monitor.setTextScale(0.5)
+monitor.setBackgroundColour(colours.black)
+monitor.setTextColour(colours.white)
+monitor.clear()
 local w,h = monitor.getSize()
 
 local printers = {peripheral.find("3d_printer")}
@@ -37,8 +40,8 @@ local function displayStats(obj)
   if not obj.bars.ink then obj.bars.ink = pg.create(2,5,13,1,colours.lime,colours.red,0,win) end
   if not obj.bars.chamelium then obj.bars.chamelium = pg.create(2,7,13,1,colours.lime,colours.red,0,win) end
 
-  local c,cMax = printer.getChameliumLevel() -- chamelium and chamelium max
-  local i,iMax = printer.getInkLevel() -- ink and ink max
+  local c,cMax = printer.getChameliumLevel() -- chamelium, chamelium max
+  local i,iMax = printer.getInkLevel() -- ink, ink max
   local status,progress = printer.status() -- Printer status and progress
   win.setVisible(false)
 
@@ -57,6 +60,8 @@ local function displayStats(obj)
   obj.bars.status.update((progress or 0))
   obj.bars.ink.update((i/iMax)*100)
   obj.bars.chamelium.update((c/cMax)*100)
+
+  win.setVisible(true)
 end
 
 while true do
