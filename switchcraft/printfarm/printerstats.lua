@@ -17,19 +17,20 @@ local printers = {peripheral.find("3d_printer")}
 local pstats = {}
 
 local rowLength = 0
-local row = 1
-local column = 1
+local row = 0
+local column = 0
 for i,printer in ipairs(printers) do
   if rowLength+14 > w then
     row = row + 1
     rowLength = 0
-    column = 1
+    column = 0
   end
   rowLength = rowLength + 14
 
   local win = window.create(monitor,row*14,column*8,14,8)
   local obj = {win=win,printer=printer,id=i,bars={}}
   pstats[#pstats+1] = obj
+  column = column + 1
 end
 
 local function displayStats(obj)
