@@ -33,9 +33,9 @@ local function displayStats(obj)
   local win = obj.win
   local printer = obj.printer
   local id = obj.id
-  if not obj.bars.status then pg.create(2,3,13,1,colours.lime,colours.red,0,win) end
-  if not obj.bars.ink then pg.create(2,5,13,1,colours.lime,colours.red,0,win) end
-  if not obj.bars.chamelium then pg.create(2,7,13,1,colours.lime,colours.red,0,win) end
+  if not obj.bars.status then obj.bars.status = pg.create(2,3,13,1,colours.lime,colours.red,0,win) end
+  if not obj.bars.ink then obj.bars.ink = pg.create(2,5,13,1,colours.lime,colours.red,0,win) end
+  if not obj.bars.chamelium then obj.bars.chamelium = pg.create(2,7,13,1,colours.lime,colours.red,0,win) end
 
   local c,cMax = printer.getChameliumLevel() -- chamelium and chamelium max
   local i,iMax = printer.getInkLevel() -- ink and ink max
