@@ -57,9 +57,9 @@ local function displayStats(obj)
   win.setCursorPos(2,6)
   win.write("Chamelium:")
 
-  obj.bars.status.update((progress or 0))
-  obj.bars.ink.update((i/iMax)*100)
-  obj.bars.chamelium.update((c/cMax)*100)
+  obj.bars.status:update((progress or 0))
+  obj.bars.ink:update((i/iMax)*100)
+  obj.bars.chamelium:update((c/cMax)*100)
 
   win.setVisible(true)
 end
