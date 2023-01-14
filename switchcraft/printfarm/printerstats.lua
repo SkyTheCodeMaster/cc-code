@@ -46,7 +46,7 @@ local function displayStats(obj)
   win.write("Printer #"..id)
 
   win.setCursorPos(2,2)
-  win.write("Status: "..status)
+  win.write("Status: "..(status or "UNK"))
 
   win.setCursorPos(2,4)
   win.write("Ink:")
