@@ -29,7 +29,11 @@ for i,printer in ipairs(printers) do
   rowLength = rowLength + 14
 
   local win = window.create(superWin,column*14+1,row*8+1,14,8)
-  local obj = {win=win,printer=printer,id=i,bars={}}
+  local obj = {win=win,printer=printer,id=i,bars={
+    status = pg.create(2,3,13,1,colours.lime,colours.red,0,win),
+    ink = pg.create(2,5,13,1,colours.lime,colours.red,0,win),
+    chamelium = pg.create(2,7,13,1,colours.lime,colours.red,0,win),
+  }}
   pstats[#pstats+1] = obj
   column = column + 1
 end
@@ -38,9 +42,6 @@ local function getStats(objs)
   local stats = {}
   for _,obj in pairs(objs) do
     local stat = {}
-    stat.bars.status = pg.create(2,3,13,1,colours.lime,colours.red,0,obj.win)
-    stat.bars.ink = pg.create(2,5,13,1,colours.lime,colours.red,0,obj.win)
-    stat.bars.chamelium = pg.create(2,7,13,1,colours.lime,colours.red,0,obj.win)
     local printer = obj.printer
     local c,cMax = printer.getChameliumLevel() -- chamelium, chamelium max
     local i,iMax = printer.getInkLevel() -- ink, ink max
