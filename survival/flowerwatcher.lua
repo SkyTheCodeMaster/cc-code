@@ -60,8 +60,6 @@ local function wait(chest,fullness)
     win.setCursorPos(1,2)
     local w = win.getSize()
     win.write(string.rep("-",w))
-    win.setCursorPos(1,3)
-    win.write("RUNNING")
   
     -- First, print out the % full of each chest
     local i = 5
