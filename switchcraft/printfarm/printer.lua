@@ -62,9 +62,11 @@ end
 
 local function printManager()
   while true do
-    for _,printer in pairs(printers) do
-      if printer.status() == "idle" then
-        startPrinter(printer)
+    if next(queue) ~= nil then
+      for _,printer in pairs(printers) do
+        if printer.status() == "idle" and next(queue) ~= nil then
+          startPrinter(printer)
+        end
       end
     end
     sleep()
@@ -117,4 +119,7 @@ local function selectionManager()
   end
 end
 
-parallel.waitForAny(printManager,selectionManager)
+parallel.waitForAny(
+  printManager,
+  selectionManager
+)
