@@ -27,6 +27,9 @@ local function centerWrite(txt,y,t)
   t.setCursorPos(ox,oy)
 end
 
+term.setBackgroundColour(colours.blue)
+term.setTextColour(colours.white)
+term.clear()
 centerWrite("Skynet Flower Farm",1,term)
 term.setCursorPos(1,2)
 local w = term.getSize()
