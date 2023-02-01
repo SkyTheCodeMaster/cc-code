@@ -51,7 +51,33 @@ end
 
 local function wait(chest,fullness)
   -- Wait until a chest drops below `fullness` percent full
-  repeat sleep(1)
+  repeat 
+    win.setVisible(false)
+    win.setBackgroundColour(colours.blue)
+    win.setTextColour(colours.white)
+    win.clear()
+    centerWrite("Skynet Flower Watcher",1,win)
+    win.setCursorPos(1,2)
+    local w = win.getSize()
+    win.write(string.rep("-",w))
+    win.setCursorPos(1,3)
+    win.write("RUNNING")
+  
+    -- First, print out the % full of each chest
+    local i = 5
+    for name,chest in pairs(chests) do
+      win.setCursorPos(1,i)
+      win.clearLine()
+      local full = percent(chest)
+      win.write(name .. ": " .. full .. "%")
+      i = i + 1
+    end
+    win.setCursorPos(1,i)
+    win.clearLine()
+    local full = percent(COMPOST)
+    win.write("COMPOST: " .. full .. "%")
+    win.setVisible(true)
+    sleep(1)
   until percent(chest) <= fullness
 end
 
