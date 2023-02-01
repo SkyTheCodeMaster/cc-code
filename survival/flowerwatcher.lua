@@ -17,13 +17,15 @@ local function centerWrite(txt,y,t)
   t.setCursorPos(ox,oy)
 end
 
-mon.setBackgroundColour(colours.blue)
-mon.setTextColour(colours.white)
-mon.clear()
-centerWrite("Skynet Flower Watcher",1,mon)
-mon.setCursorPos(1,2)
-local w = mon.getSize()
-mon.write(string.rep("-",w))
+local win = window.create(mon,1,1,mon.getSize())
+
+win.setBackgroundColour(colours.blue)
+win.setTextColour(colours.white)
+win.clear()
+centerWrite("Skynet Flower Watcher",1,win)
+win.setCursorPos(1,2)
+local w = win.getSize()
+win.write(string.rep("-",w))
 
 local chests = {
   ALLIUMS=ALLIUMS,
@@ -53,24 +55,26 @@ local function wait(chest,fullness)
 end
 
 while true do
+  win.setVisible(false)
   -- First, print out the % full of each chest
   local i = 5
   for name,chest in pairs(chests) do
-    mon.clearLine(i)
-    mon.setCursorPos(1,i)
+    win.clearLine(i)
+    win.setCursorPos(1,i)
     local full = percent(chest)
-    mon.write(name .. ": " .. full .. "%")
+    win.write(name .. ": " .. full .. "%")
     i = i + 1
   end
-  mon.clearLine(i)
-  mon.setCursorPos(1,i)
+  win.clearLine(i)
+  win.setCursorPos(1,i)
   local full = percent(COMPOST)
-  mon.write("COMPOST: " .. full .. "%")
+  win.write("COMPOST: " .. full .. "%")
+  win.setVisible(true)
   -- first check the composter chest
   if percent(COMPOST) > 95 then
-    mon.clearLine(3)
-    mon.setCursorPos(1,3)
-    mon.write("PAUSED - Compost chest full.")
+    win.clearLine(3)
+    win.setCursorPos(1,3)
+    win.write("PAUSED - Compost chest full.")
 
     -- Now we wait for the chest to go down to like 75% full
     rs.setOutput("right",true)
@@ -79,15 +83,15 @@ while true do
 
     rs.setOutput("right",false)
 
-    mon.clearLine(3)
-    mon.setCursorPos(1,3)
-    mon.write("RUNNING")
+    win.clearLine(3)
+    win.setCursorPos(1,3)
+    win.write("RUNNING")
   end
   for name,chest in pairs(chests) do
     if percent(chest) >= 99 then
-      mon.clearLine(3)
-      mon.setCursorPos(1,3)
-      mon.write("PAUSED - " .. name .. " chest full.")
+      win.clearLine(3)
+      win.setCursorPos(1,3)
+      win.write("PAUSED - " .. name .. " chest full.")
 
       rs.setOutput("right",true)
 
@@ -95,9 +99,9 @@ while true do
 
       rs.setOutput("right",false)
 
-      mon.clearLine(3)
-      mon.setCursorPos(1,3)
-      mon.write("RUNNING")
+      win.clearLine(3)
+      win.setCursorPos(1,3)
+      win.write("RUNNING")
     end
   end
   sleep(1)
