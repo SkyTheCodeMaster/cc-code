@@ -1,6 +1,6 @@
 -- Sits atop a flower farm, sucks and sorts items.
 
-local COMPOST = peripheral.wrap("sc-goodies:diamond_chest_1579")
+local COMPOST = peripheral.wrap("ender_storage_6082")
 local ALLIUMS = peripheral.wrap("sc-goodies:diamond_chest_1573")
 local DANDELS = peripheral.wrap("sc-goodies:diamond_chest_1574")
 local CORNFLR = peripheral.wrap("sc-goodies:diamond_chest_1575")
