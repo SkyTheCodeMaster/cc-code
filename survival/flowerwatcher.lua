@@ -6,6 +6,7 @@ local OXDAISY = peripheral.wrap("sc-goodies:diamond_chest_1576")
 local POPPIES = peripheral.wrap("sc-goodies:diamond_chest_1577")
 
 local mon = peripheral.wrap("monitor_479")
+mon.setTextScale(0.5)
 
 local function centerWrite(txt,y,t)
   t = t or term
@@ -56,24 +57,34 @@ end
 
 while true do
   win.setVisible(false)
+  win.setBackgroundColour(colours.blue)
+  win.setTextColour(colours.white)
+  win.clear()
+  centerWrite("Skynet Flower Watcher",1,win)
+  win.setCursorPos(1,2)
+  local w = win.getSize()
+  win.write(string.rep("-",w))
+  win.setCursorPos(1,3)
+  win.write("RUNNING")
+
   -- First, print out the % full of each chest
   local i = 5
   for name,chest in pairs(chests) do
-    win.clearLine(i)
     win.setCursorPos(1,i)
+    win.clearLine()
     local full = percent(chest)
     win.write(name .. ": " .. full .. "%")
     i = i + 1
   end
-  win.clearLine(i)
   win.setCursorPos(1,i)
+  win.clearLine()
   local full = percent(COMPOST)
   win.write("COMPOST: " .. full .. "%")
   win.setVisible(true)
   -- first check the composter chest
   if percent(COMPOST) > 95 then
-    win.clearLine(3)
     win.setCursorPos(1,3)
+    win.clearLine()
     win.write("PAUSED - Compost chest full.")
 
     -- Now we wait for the chest to go down to like 75% full
@@ -83,14 +94,14 @@ while true do
 
     rs.setOutput("right",false)
 
-    win.clearLine(3)
     win.setCursorPos(1,3)
+    win.clearLine()
     win.write("RUNNING")
   end
   for name,chest in pairs(chests) do
     if percent(chest) >= 99 then
-      win.clearLine(3)
       win.setCursorPos(1,3)
+      win.clearLine()
       win.write("PAUSED - " .. name .. " chest full.")
 
       rs.setOutput("right",true)
@@ -99,8 +110,8 @@ while true do
 
       rs.setOutput("right",false)
 
-      win.clearLine(3)
       win.setCursorPos(1,3)
+      win.clearLine()
       win.write("RUNNING")
     end
   end
