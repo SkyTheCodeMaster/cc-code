@@ -27,6 +27,19 @@ local function centerWrite(txt,y,t)
   t.setCursorPos(ox,oy)
 end
 
+local function percent(chest)
+  local list = chest.list()
+  local size = chest.size()
+  local itemCount = 0
+  local maxItems = 64*size
+  for i=1,size do
+    if list[i] then
+      itemCount = itemCount + list[i].count
+    end
+  end
+  return math.floor((itemCount/maxItems)*100)
+end
+
 term.setBackgroundColour(colours.blue)
 term.setTextColour(colours.white)
 term.clear()
@@ -42,6 +55,9 @@ while true do
       if data then
         if endpoints[data.name] then
           local endpoint = endpoints[data.name]
+          if percent(endpoint) >= 98 then
+            endpoint = COMPOST
+          end
           endpoint.pullItems(selfName,i)
         else
           local endpoint = COMPOST
