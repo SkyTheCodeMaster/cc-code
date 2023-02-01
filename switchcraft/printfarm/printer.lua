@@ -96,8 +96,8 @@ local function selectionManager()
     end
 
     -- Draw a nice little box around the file selection window.
-    for y = h-3, h-1 do
-      if y == 1 or y == h-3 then
+    for y = h-3, h do
+      if y == h-3 or y == h or y == h-1 then
         win.setCursorPos(1,y)
         win.blit((" "):rep(w),("b"):rep(w),("b"):rep(w))
       else
