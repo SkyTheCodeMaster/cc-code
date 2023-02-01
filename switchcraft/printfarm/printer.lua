@@ -83,13 +83,26 @@ local function selectionManager()
     -- Draw a nice little box around the file selection window.
     for y = 1, h-3 do
       if y == 1 or y == h-3 then
-        term.setCursorPos(1, y)
-        term.blit((" "):rep(w), ("b"):rep(w), ("b"):rep(w))
+        term.setCursorPos(1,y)
+        term.blit((" "):rep(w),("b"):rep(w),("b"):rep(w))
       else
-        term.setCursorPos(1, y)
-        term.blit(" ", "b", "b")
-        term.setCursorPos(w, y)
-        term.blit(" ", "b", "b")
+        term.setCursorPos(1,y)
+        term.blit(" ","b","b")
+        term.setCursorPos(w,y)
+        term.blit(" ","b","b")
+      end
+    end
+
+    -- Draw a nice little box around the file selection window.
+    for y = h-3, h do
+      if y == 1 or y == h-3 then
+        term.setCursorPos(1,y)
+        term.blit((" "):rep(w),("b"):rep(w),("b"):rep(w))
+      else
+        term.setCursorPos(1,y)
+        term.blit(" ","b","b")
+        term.setCursorPos(w,y)
+        term.blit(" ","b","b")
       end
     end
   end
