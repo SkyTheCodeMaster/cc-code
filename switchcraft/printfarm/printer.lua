@@ -83,28 +83,37 @@ local function selectionManager()
     -- Draw a nice little box around the file selection window.
     for y = 1, h-3 do
       if y == 1 or y == h-3 then
-        term.setCursorPos(1,y)
-        term.blit((" "):rep(w),("b"):rep(w),("b"):rep(w))
+        win.setCursorPos(1,y)
+        win.blit((" "):rep(w),("b"):rep(w),("b"):rep(w))
       else
-        term.setCursorPos(1,y)
-        term.blit(" ","b","b")
-        term.setCursorPos(w,y)
-        term.blit(" ","b","b")
+        win.setCursorPos(1,y)
+        win.blit(" ","b","b")
+        win.setCursorPos(w,y)
+        win.blit(" ","b","b")
       end
     end
 
     -- Draw a nice little box around the file selection window.
-    for y = h-3, h do
+    for y = h-3, h-1 do
       if y == 1 or y == h-3 then
-        term.setCursorPos(1,y)
-        term.blit((" "):rep(w),("b"):rep(w),("b"):rep(w))
+        win.setCursorPos(1,y)
+        win.blit((" "):rep(w),("b"):rep(w),("b"):rep(w))
       else
-        term.setCursorPos(1,y)
-        term.blit(" ","b","b")
-        term.setCursorPos(w,y)
-        term.blit(" ","b","b")
+        win.setCursorPos(1,y)
+        win.blit(" ","b","b")
+        win.setCursorPos(w,y)
+        win.blit(" ","b","b")
       end
     end
+
+    local files = fs.list("disk")
+    for i=1,#files do
+      win.setCursorPos(2,1+i)
+      win.write(files[i])
+    end
+
+    win.setVisible(true)
+    sleep()
   end
 end
 
