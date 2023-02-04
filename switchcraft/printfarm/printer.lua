@@ -200,11 +200,12 @@ local function selectionManager()
     end
 
     win.setVisible(true)
-    sleep()
+    sleep(1)
   end
 end
 
 parallel.waitForAny(
   printManager,
-  selectionManager
+  selectionManager,
+  button.run()
 )
