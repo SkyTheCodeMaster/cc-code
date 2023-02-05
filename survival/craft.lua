@@ -7,9 +7,9 @@ local S = "minecraft:stick"
 local H = "minecraft:string"
 local E = "" -- A blank string is an empty slot.
 local recipe = { -- Craft a bow.
-  {E,H,S},
-  {H,E,S},
-  {E,H,S},
+  {E,S,H},
+  {S,E,H},
+  {E,S,H},
 }
 local result = "minecraft:bow" -- This is used for the capacity
 local capacity = 16 -- We try to keep this many items in the output
@@ -35,7 +35,7 @@ end
 -- {
 --   ["minecraft:stick"] = {
 --     count=63,
---     get = function(count) -> grabs X items from any available chests  
+--     get = function(count) -> grabs X items from any available chests
 --     }
 --   }
 -- }
@@ -91,11 +91,13 @@ local function collectRequiredMaterials(sources)
   local funcs = {}
   for i,row in pairs(recipe) do
     for o,item in pairs(row) do
-      local slot = lut[(3*i-3)+o]
-      local function func()
-        sources[item].get(1,slot)
+      if item ~= E then
+        local slot = lut[(3*i-3)+o]
+        local function func()
+          sources[item].get(1,slot)
+        end
+        funcs[#funcs+1] = func
       end
-    funcs[#funcs+1] = func
     end
   end
   parallel.waitForAll(table.unpack(funcs))
@@ -106,7 +108,7 @@ local function craft()
   for name,count in pairs(cost) do
     if not sources[name] or sources[name].count < count then
       sleep(1) -- Wait a bit
-      return
+      return false
     end
   end
   collectRequiredMaterials(sources)
@@ -114,6 +116,7 @@ local function craft()
   turtle.craft()
   -- Now ship it out to the output chest
   OUTPUT_CHEST.pullItems(selfname,1)
+  return true
 end
 
 local stock = 0
@@ -130,8 +133,9 @@ local function craftManager()
     end
     stock = count -- This will prevent the display from displaying 0 in race
     if stock < capacity then
-      craft()
-      produced = produced + 1
+      if craft() then
+        produced = produced + 1
+      end
     end
   end
 end
