@@ -62,7 +62,6 @@ local function getStats(objs)
   for i,func in ipairs(funcs) do
     temp[#temp+1] = func
     if i%8 == 0 then
-      ---@diagnostic disable-next-line: deprecated
       parallel.waitForAll(table.unpack(temp))
       temp = {}
     end

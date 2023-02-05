@@ -6,5 +6,4 @@ for _,file in pairs(fs.list("modules")) do
   table.insert(modules,function() load(contents,"="..file,"t",_ENV)() end)
 end
 
----@diagnostic disable-next-line: deprecated
 parallel.waitForAll(table.unpack(modules))

@@ -49,7 +49,6 @@ local function runCoros()
       else
         if not v.filter or v.filter == e[1] or e[1] == "terminate" then -- If unfiltered, pass all events, if filtered, pass only filter
           -- Check for active coroutine
-            ---@diagnostic disable-next-line: deprecated
             local ok,filter = coroutine.resume(v.coro,table.unpack(e))
             if ok then
               v.filter = filter -- okie dokie
@@ -59,7 +58,6 @@ local function runCoros()
         end
       end
     end
-    ---@diagnostic disable-next-line: deprecated
     e = table.pack(coroutine.yield())
   end
   running = true
