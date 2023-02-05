@@ -89,7 +89,7 @@ local function collectRequiredMaterials(sources)
   local lut = {1,2,3,5,6,7,9,10,11}
   -- Go through our sources and pull only the required materials.
   local funcs = {}
-  for i,row in pairs(cost) do
+  for i,row in pairs(recipe) do
     for o,item in pairs(row) do
       local slot = lut[(3*i-3)+o]
       local function func()
@@ -103,6 +103,12 @@ end
 
 local function craft()
   local sources = buildMaterialsList()
+  for name,count in pairs(cost) do
+    if not sources[name] or sources[name].count < count then
+      sleep(1) -- Wait a bit
+      return
+    end
+  end
   collectRequiredMaterials(sources)
   turtle.select(1)
   turtle.craft()
