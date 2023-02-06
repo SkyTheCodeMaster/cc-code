@@ -116,6 +116,17 @@ local function craft()
   turtle.craft()
   -- Now ship it out to the output chest
   OUTPUT_CHEST.pullItems(selfname,1)
+  -- Now clear out the turtle back into the last input chest
+  local endpoint = INPUT_CHESTS[#INPUT_CHESTS]
+  local funcs = {}
+  for i=1,16 do
+    if turtle.getItemDetail(i) then
+      funcs[#funcs+1] = function()
+        endpoint.pullItems(selfname,i)
+      end
+    end
+  end
+  parallel.waitForAll(table.unpack(funcs))
   return true
 end
 
