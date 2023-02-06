@@ -1,5 +1,51 @@
 {
   "Lua.diagnostics.disable": [
-    "deprecated"
-  ]
+    "deprecated",
+    "unused-local",
+    "lowercase-global",
+    "unused-function"
+],
+"Lua.diagnostics.severity": {
+    "redefined-local": "Warning"
+},
+"Lua.diagnostics.globals": [
+    "printError",
+    "sleep",
+    "read",
+    "write",
+    "print",
+    "colours",
+    "colors",
+    "commands",
+    "disk",
+    "fs",
+    "gps",
+    "help",
+    "http",
+    "paintutils",
+    "parallel",
+    "peripheral",
+    "rednet",
+    "redstone",
+    "keys",
+    "settings",
+    "shell",
+    "multishell",
+    "term",
+    "textutils",
+    "turtle",
+    "pocket",
+    "vector",
+    "bit32",
+    "window",
+    "_CC_DEFAULT_SETTINGS",
+    "_HOST",
+    "_VERSION",
+    "_",
+    "rs",
+    "bit",
+    "bit32",
+    "_ENV",
+],
+"Lua.runtime.version": "LuaJIT",
 }

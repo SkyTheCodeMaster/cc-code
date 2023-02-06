@@ -32,7 +32,7 @@ local function makeEnvironment(additives)
   return env
 end
 
-local function getLocals(coro,raw)
+local function getLocals(cor,raw)
   -- We want to return a proxy table of local names.
   -- This will upon indexing it, use `debug.getupvalue` to get the current state of the local variable.
   
@@ -41,7 +41,7 @@ local function getLocals(coro,raw)
     local i = 0
     while true do
       i = i + 1
-      local name,value = debug.getlocal(coro,2,i)
+      local name,value = debug.getlocal(cor,2,i)
       if not name then break end
       map[name] = value
     end
@@ -54,9 +54,9 @@ local function getLocals(coro,raw)
     local i = 0
     while true do
       i = i + 1
-      local nam,value = debug.getlocal(coro,2,i)
+      local nam,val = debug.getlocal(cor,2,i)
       if nam == name then
-        debug.setlocal(coro,2,i,value)
+        debug.setlocal(cor,2,i,value)
         return true
       elseif not nam then
         return false
