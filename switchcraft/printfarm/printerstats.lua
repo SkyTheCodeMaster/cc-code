@@ -101,5 +101,8 @@ while true do
   superWin.setVisible(true)
   ---@diagnostic disable-next-line: undefined-field
   print("cycle", os.epoch("local") / 1000)
-  sleep(1)
+  rs.setOutput("right",true)
+  sleep(0.25)
+  rs.setOutput("right",false)
+  sleep(0.75)
 end

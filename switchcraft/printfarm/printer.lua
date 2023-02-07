@@ -276,7 +276,22 @@ local function monitorManager()
   end
 end
 
+local function blink()
+  local oldQueue = #queue
+  while true do
+    if #queue ~= oldQueue then
+      -- blink the funny light
+      rs.setOutput("right",true)
+      sleep(0.2)
+      rs.setOutput("right",false)
+      oldQueue = #queue
+    end
+    sleep()
+  end
+end
+
 parallel.waitForAll(
   printManager,
-  displayManager
+  displayManager,
+  blink,
 )
