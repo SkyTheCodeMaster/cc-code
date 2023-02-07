@@ -1,6 +1,6 @@
 -- Balance materials from a pair of input diamond chests across all connected iron chests.
-local INKINPUT = peripheral.wrap("sc-goodies:diamond_chest_1234")
-local CHAINPUT = peripheral.wrap("sc-goodies:diamond_chest_1235")
+local INKINPUT = peripheral.wrap("sc-goodies:diamond_chest_1741")
+local CHAINPUT = peripheral.wrap("sc-goodies:diamond_chest_1740")
 
 local OUTPUTS = {peripheral.find("sc-goodies:iron_chest")}
 
