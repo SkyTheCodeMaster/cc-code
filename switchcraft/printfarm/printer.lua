@@ -3,6 +3,10 @@ local monitor = peripheral.wrap("monitor_368")
 
 local printers = {peripheral.find("3d_printer")}
 
+
+-- number lookup for selection box
+local numbers = {["0"]=true,["1"]=true,["2"]=true,["3"]=true,["4"]=true,["5"]=true,["6"]=true,["7"]=true,["8"]=true,["9"]=true,}
+
 local queue = {}
 
 -- queue = { 
@@ -86,26 +90,26 @@ local function calculateCosts(file)
   local surface = 0
   for _,shape in pairs(data.shapesOff) do
     volume = volume + (
-      shape[4] - shape[1] *
-      shape[5] - shape[2] *
-      shape[6] - shape[3]
+      math.abs(shape.bounds[4] - shape.bounds[1]) *
+      math.abs(shape.bounds[5] - shape.bounds[2]) *
+      math.abs(shape.bounds[6] - shape.bounds[3])
     )
     surface = surface + 2*(
-      shape[4] - shape[1] +
-      shape[5] - shape[2] +
-      shape[6] - shape[3]
+      math.abs(shape.bounds[4] - shape.bounds[1]) +
+      math.abs(shape.bounds[5] - shape.bounds[2]) +
+      math.abs(shape.bounds[6] - shape.bounds[3])
     )
   end
   for _,shape in pairs(data.shapesOn) do
     volume = volume + (
-      shape[4] - shape[1] *
-      shape[5] - shape[2] *
-      shape[6] - shape[3]
+      math.abs(shape.bounds[4] - shape.bounds[1]) *
+      math.abs(shape.bounds[5] - shape.bounds[2]) *
+      math.abs(shape.bounds[6] - shape.bounds[3])
     )
     surface = surface + 2*(
-      shape[4] - shape[1] +
-      shape[5] - shape[2] +
-      shape[6] - shape[3]
+      math.abs(shape.bounds[4] - shape.bounds[1]) +
+      math.abs(shape.bounds[5] - shape.bounds[2]) +
+      math.abs(shape.bounds[6] - shape.bounds[3])
     )
   end
   local redstoneCost = 300
@@ -161,8 +165,41 @@ local function confirm(file,win)
   local cost = calculateCosts(file)
   win.setVisible(false)
   win.clear()
-  drawBox(1,1,20,5,"8",true,win)
+  drawBox(1,1,20,6,"8",true,win)
+  win.setCursorPos(2,2)
+  win.setBackgroundColour(colours.lightGrey)
+  win.write((cost.data.label or "unlabelled"):sub(1,18))
+  win.setCursorPos(11,3)
+  win.write("CHA:"..cost.chamelium)
+  win.setCursorPos(11,4)
+  win.write("INK:"..cost.ink)
+  win.setCursorPos(4,3)
+  win.blit("Quan","8888","7777")
+  win.setCursorPos(2,5)
+  win.blit("OK (E)","000000","dddddd")
+  win.setCursorPos(12,5)
+  win.blit("Exit (X)","00000000","eeeeeeee")
   win.setVisible(true)
+  local quantity = ""
+  while true do
+    local e = {os.pullEvent("char")}
+    if e[2] == "e" then
+      -- Generate the table
+      local job = {
+        name=cost.data.label or "unlabelled",
+        remaining = tonumber(quantity)or 1,
+        startQuantity=tonumber(quantity)or 1,
+        data = cost.data,
+      }
+      table.insert(queue,job)
+    elseif e[2] == "x" then
+      return
+    elseif numbers[e[2]] then
+      quantity = quantity..e[2]
+    elseif e[2] == keys.backspace then
+      quantity = quantity:sub(1,#quantity-1)
+    end
+  end
 end
 
 local function displayManager()
@@ -182,7 +219,7 @@ local function displayManager()
       if selected+1 == #files+1 then selected = 1
       else selected = selected + 1 end
     elseif e[1] == "key" and e[2] == keys.enter then
-      confirm(files[selected],win)
+      confirm(fs.combine("disk",files[selected]),win)
     end
     win.setVisible(false)
     
@@ -206,7 +243,29 @@ local function displayManager()
   end
 end
 
-parallel.waitForAny(
+local function monitorManager()
+  local bigfont = require("bigfont")
+  local w,h = monitor.getSize()
+  local win = window.create(monitor,1,1,w,h)
+  w,h = win.getSize()
+  while true do
+    win.setVisible(false)
+    for i,job in ipairs(queue) do
+      local x = 1
+      local y = i*6-5
+      bigfont.blitOn(win,1,job.name:sub(1,10),("0"):rep(#job.name:sub(1,10)),("f"):rep(#job.name:sub(1,10)),x,y)
+      win.setCursorPos(2,y+3)
+      win.write("Remaining: "..job.remaining)
+      local percent = math.floor((job.remaining/job.startQuantity)*100)
+      win.setCursorPos(31,y+3)
+      win.write(percent .. "% Done")
+      win.setCursorPos(1,y+4)
+      
+    end
+  end
+end
+
+parallel.waitForAll(
   printManager,
   displayManager
 )
