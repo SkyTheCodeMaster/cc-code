@@ -2,10 +2,7 @@
   "https://raw.githubusercontent.com/SkyTheCodeMaster/SkyDocs/main/src/main/misc/progressbar.lua": {
     "path": "progressbar.lua"
   },
-  "https://raw.githubusercontent.com/SkyTheCodeMaster/SkyDocs/main/src/main/misc/button.lua": {
-    "path": "button.lua"
-  },
-  "https://raw.githubusercontent.com/SkyTheCodeMaster/SkyDocs/main/src/main/misc/bufferedinput.lua": {
-    "path": "bufferedinput.lua"
+  "https://pastebin.com/raw/3LfWxRWh": {
+    "path": "bigfont.lua"
   }
 }
