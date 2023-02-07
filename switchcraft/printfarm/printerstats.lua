@@ -99,6 +99,7 @@ while true do
   superWin.setVisible(false)
   drawStats(getStats(pstats))
   superWin.setVisible(true)
+  ---@diagnostic disable-next-line: undefined-field
   print("cycle", os.epoch("local") / 1000)
   sleep(1)
 end
