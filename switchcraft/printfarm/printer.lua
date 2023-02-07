@@ -293,5 +293,5 @@ end
 parallel.waitForAll(
   printManager,
   displayManager,
-  blink,
+  blink
 )
