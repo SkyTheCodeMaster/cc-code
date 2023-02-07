@@ -260,7 +260,18 @@ local function monitorManager()
       win.setCursorPos(31,y+3)
       win.write(percent .. "% Done")
       win.setCursorPos(1,y+4)
-      
+      -- Make the text string, this will include the half character.
+      local txt = ""
+      local bg = ""
+      if math.ceil(w*percent*2)/2 ~= math.floor(math.ceil(w*percent*2)/2) then
+        txt = (" "):rep(math.ceil(w*percent*2)/2) .. "\149" .. (" "):rep(w-math.floor(math.ceil(w*percent*2)/2)-1)
+        bg = ("d"):rep(math.ceil(w*percent*2)/2) .. "d" .. ("e"):rep(w-math.floor(math.ceil(w*percent*2)/2)-1)
+      else
+        txt = (" "):rep(w)
+        bg = ("d"):rep(math.ceil(w*percent*2)/2) .. ("e"):rep(math.floor(math.ceil(w*percent*2)/2))
+      end
+      local fg = ("d"):rep(w)
+      win.blit(txt,("d"):rep(w),bg)
     end
   end
 end
