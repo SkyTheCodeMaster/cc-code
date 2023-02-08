@@ -182,8 +182,8 @@ local function confirm(file,win)
   win.setVisible(true)
   local quantity = ""
   while true do
-    local e = {os.pullEvent("char")}
-    if e[2] == "e" then
+    local e = {os.pullEvent()}
+    if e[1] == "char" and e[2] == "e" then
       -- Generate the table
       local job = {
         name=cost.data.label or "unlabelled",
@@ -192,19 +192,46 @@ local function confirm(file,win)
         data = cost.data,
       }
       table.insert(queue,job)
-    elseif e[2] == "x" then
       return
-    elseif numbers[e[2]] then
+    elseif e[1] == "char" and e[2] == "x" then
+      return
+    elseif e[1] == "char" and numbers[e[2]] and #quantity < 4 then
       quantity = quantity..e[2]
-    elseif e[2] == keys.backspace then
+      win.setCursorPos(4,3)
+      win.blit("Quan","8888","7777")
+      win.setCursorPos(4,3)
+      win.blit(quantity,("0"):rep(#quantity),("7"):rep(#quantity))
+    elseif e[1] == "key" and e[2] == keys.backspace then
       quantity = quantity:sub(1,#quantity-1)
+      win.setCursorPos(4,3)
+      win.blit("Quan","8888","7777")
+      win.setCursorPos(4,3)
+      win.blit(quantity,("0"):rep(#quantity),("7"):rep(#quantity))
     end
   end
 end
 
+local function download(win)
+  local w,h = win.getSize()
+  win.setCursorPos(2,h-1)
+  local url = read()
+  if 
+    url:sub(1,4) ~= "http" or
+    url:sub(-3) ~= "3dj"
+  then return end
+  local handle = assert(http.get(url))
+  local content = handle.readAll()
+  handle.close()
+  local name = fs.getName(url)
+  ---@diagnostic disable-next-line: redefined-local
+  local handle = fs.open(fs.combine("disk",name),"w")
+  handle.write(content)
+  handle.close()
+end
+
 local function displayManager()
   local w,h = term.getSize()
-  local win = window.create(term.current(),1,1,w,h-3)
+  local win = window.create(term.current(),1,1,w,h)
   w,h = win.getSize()
 
   local files = fs.list("disk")
@@ -220,10 +247,22 @@ local function displayManager()
       else selected = selected + 1 end
     elseif e[1] == "key" and e[2] == keys.enter then
       confirm(fs.combine("disk",files[selected]),win)
+    elseif e[1] == "key" and e[2] == keys.d then
+      os.pullEvent() -- Capture the rogue `D` char event
+      download(win)
     end
     win.setVisible(false)
     
-    drawBox(1,1,w,h,"b",false,win)
+    win.setTextColour(colours.white)
+    win.setBackgroundColour(colours.black)
+
+    drawBox(1,1,w,h-3,"b",false,win)
+    win.setCursorPos(1,h-1)
+    win.clearLine()
+    drawBox(1,h-2,w,3,"b",false,win)
+
+    win.setCursorPos(2,h-2)
+    win.blit("Download (D)","000000000000","dddddddddddd")
 
     win.setCursorPos(1,1)
     win.blit((" "):rep(w),("b"):rep(w),("b"):rep(w))
@@ -291,7 +330,7 @@ local function blink()
 end
 
 parallel.waitForAll(
-  printManager,
-  displayManager,
-  blink
+  --printManager,
+  displayManager
+  --blink
 )
