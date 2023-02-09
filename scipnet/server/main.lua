@@ -33,7 +33,7 @@ _G.scipnet.data.users_hashed_reversed = {}
 
 local tmp = {}
 for k,uuid in pairs(scipnet.data.users) do
-  tmp[k] = {hash=sha.digest(uuid),uuid=uuid}
+  tmp[k] = {hash=sha.digest(uuid):toHex(),uuid=uuid}
 end
 -- Now set numerical keys and reverse keys in table
 for k,tbl in pairs(tmp) do

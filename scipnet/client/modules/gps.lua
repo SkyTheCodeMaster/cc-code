@@ -8,7 +8,7 @@ local key = {keyf.readAll():byte(1,-1)}
 keyf.close()
 local ni = peripheral.wrap("back")
 
-local uuid = sha.digest(ni.getMetaOwner().id)
+local uuid = sha.digest(ni.getMetaOwner().id):toHex()
 
 while true do
   local x,y,z = gps.locate()
@@ -30,4 +30,5 @@ while true do
     }
   )
   modem.transmit(61312,61312,realPacket)
+  sleep(0.5)
 end

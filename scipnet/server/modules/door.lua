@@ -37,12 +37,13 @@ local f = fs.open("data/doors.json","r")
 local data = textutils.unserialiseJSON(f.readAll())
 f.close()
 
+local function range(n, a, b)
+  return n >= math.min(a,b) and n <= math.max(a,b)
+end
+
 local function within(v,c1,c2)
   -- Check if v is within c1 and c2
-  return 
-    c1.x >= v.x and v.x <= c2.x and
-    c1.y >= v.y and v.y <= c2.y and
-    c1.z >= v.z and v.z <= c2.z
+  return range(v.x, c1.x, c2.x) and range(v.y, c1.y, c2.y) and range(v.z, c1.z, c2.z)
 end
 
 local function open(door)
@@ -59,7 +60,7 @@ local function open(door)
   -- Display the countdown
 
   for i=3,1,-1 do
-    bf.writeOn(doorMon,tostring(i),1,1)
+    bf.writeOn(doorMon,1,tostring(i),1,1)
     sleep(1)
   end
   doorMon.clear()
@@ -71,8 +72,9 @@ local accesses = {}
 
 while true do
   local e = {os.pullEvent("network_message")}
-  if e.type == "gps" and scipnet.users_hashed[e.sender] then
-    local pos = vector.new(e.data.x,e.data.y,e.data.z)
+  if e[2] == "gps" and scipnet.data.users_hashed[e[3]] then
+    local eData = e[4]
+    local pos = vector.new(eData.x,eData.y,eData.z)
     for name,d in pairs(data.doors) do
       local c1 = vector.new(d.bounds[1],d.bounds[2],d.bounds[3])
       local c2 = vector.new(d.bounds[4],d.bounds[5],d.bounds[6])
@@ -80,7 +82,7 @@ while true do
         while #accesses > h-3 do
           table.remove(accesses,1)
         end
-        table.insert(accesses,("%s @ %s: %s"):format(os.date(),name,scipnet.data.users_hashed_reversed[e.sender]))
+        table.insert(accesses,("%s @ %s: %s"):format(os.date(),name,scipnet.data.users_hashed_reversed[e[3]]))
         scipnet.coro.newCoro(function() open(d) end)
         break
       end
