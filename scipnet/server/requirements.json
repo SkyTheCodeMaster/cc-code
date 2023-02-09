@@ -11,18 +11,18 @@
   "https://raw.githubusercontent.com/SkyTheCodeMaster/cc-code/main/hypervisor/libraries/coro.lua": {
     "path": "libraries/coro.lua"
   },
-  "https://raw.githubusercontent.com/SkyTheCodeMaster/cc-code/main/scipnet/main.lua": {
+  "https://raw.githubusercontent.com/SkyTheCodeMaster/cc-code/main/scipnet/server/main.lua": {
     "path": "startup.lua"
   },
-  "https://raw.githubusercontent.com/SkyTheCodeMaster/cc-code/main/scipnet/data.json": {
+  "https://raw.githubusercontent.com/SkyTheCodeMaster/cc-code/main/scipnet/server/data.json": {
     "path": "data.json"
   },
-  "https://github.com/SkyTheCodeMaster/cc-code/tree/main/scipnet/libraries": {
+  "https://github.com/SkyTheCodeMaster/cc-code/tree/main/scipnet/server/libraries": {
     "path": "libraries",
     "folder": true,
     "recursive": true
   },
-  "https://github.com/SkyTheCodeMaster/cc-code/tree/main/scipnet/modules": {
+  "https://github.com/SkyTheCodeMaster/cc-code/tree/main/scipnet/server/modules": {
     "path": "modules",
     "folder": true,
     "recursive": true
