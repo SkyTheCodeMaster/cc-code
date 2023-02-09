@@ -12,11 +12,14 @@
     "path": "libraries/encryption.lua"
   },
   "https://raw.githubusercontent.com/SkyTheCodeMaster/cc-code/main/scipnet/client/main.lua": {
-    "path": "startup.lua"
+    "path": "scipnet.lua"
   },
   "https://github.com/SkyTheCodeMaster/cc-code/tree/main/scipnet/client/modules": {
     "path": "modules",
     "folder": true,
     "recursive": true
+  },
+  "https://raw.githubusercontent.com/SkyTheCodeMaster/cc-code/main/scipnet/startup.lua": {
+    "path": "startup/00_scipnet.lua"
   }
 }
