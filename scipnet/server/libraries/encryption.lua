@@ -1,6 +1,6 @@
 local comms = {}
-local sha = require("sha256")
-local chacha = require("chacha20")
+local sha = require("libraries.sha256")
+local chacha = require("libraries.chacha20")
 
 local sentBadNonces = {}
 local recvBadNonces = {}

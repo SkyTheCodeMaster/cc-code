@@ -1,7 +1,7 @@
 -- Will queue events for network messages
 local enc = require("libraries.encryption")
-local keyf = fs.open("/.key")
-local key = fs.readAll()
+local keyf = fs.open("/.key","r")
+local key = keyf.readAll()
 keyf.close()
 
 -- Event template
