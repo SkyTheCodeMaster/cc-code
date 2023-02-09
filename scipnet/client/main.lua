@@ -8,6 +8,12 @@ for _,fileName in ipairs(_modules) do
   table.insert(modules,fs.combine("modules",fileName))
 end
 
+-- Load startup files too
+local _startup = fs.list("startup")
+for _,fileName in pairs(_startup) do
+  table.insert(modules,fs.combine("startup",fileName))
+end
+
 local funcs = {}
 for _,file in pairs(modules) do
   ---@diagnostic disable-next-line: redefined-local
