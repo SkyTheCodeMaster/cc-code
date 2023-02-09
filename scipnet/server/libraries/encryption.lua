@@ -39,8 +39,8 @@ function comms.encrypt(data,key)
   local nonce = generateNonce()
   local tblNonce = {nonce:byte(1,-1)}
   local encData = chacha.crypt(data,key,tblNonce)
-  local hmac = sha.hmac(encData,key):toHex()
-  return nonce .. encData:toHex() .. hmac
+  local hmac = sha.hmac(tostring(encData),key)
+  return nonce .. tostring(encData) .. hmac:toHex()
 end
 
 --- Decrypts some data with a specified key
@@ -59,7 +59,7 @@ function comms.decrypt(message,key)
   recvBadNonces[nonce] = true
   local tblNonce = {nonce:byte(1,-1)}
   local data = chacha.crypt(encData,key,tblNonce)
-  return true,data
+  return true,tostring(data)
 end
 
 return comms
