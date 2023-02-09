@@ -32,7 +32,7 @@ centerWrite("Door Access",1,win)
 win.setCursorPos(1,2)
 win.write(("-"):rep(w))
 
-local f = fs.open("data/doors.json")
+local f = fs.open("data/doors.json","r")
 local data = textutils.unserialiseJSON(f.readAll())
 f.close()
 
