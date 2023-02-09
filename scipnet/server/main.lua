@@ -20,7 +20,7 @@ end
 
 -- Load the global data
 local f = fs.open("data.json","r")
-local data = f.readAll()
+local data = textutils.unserializeJSON(f.readAll())
 f.close()
 
 local sha = require("libraries.sha256")
@@ -28,18 +28,18 @@ local sha = require("libraries.sha256")
 -- Load the data into _G
 _G.scipnet = {data=data,coro=coro}
 -- Now we also need to generate hashes of these.
-_G.scipnet.data.senders_hashed = {}
-_G.scipnet.data.senders_hashed_reversed = {}
+_G.scipnet.data.users_hashed = {}
+_G.scipnet.data.users_hashed_reversed = {}
 
 local tmp = {}
-for k,uuid in pairs(scipnet.data.senders) do
+for k,uuid in pairs(scipnet.data.users) do
   tmp[k] = {hash=sha.digest(uuid),uuid=uuid}
 end
 -- Now set numerical keys and reverse keys in table
 for k,tbl in pairs(tmp) do
-  scipnet.data.senders_hashed[k] = tbl.hash
-  scipnet.data.senders_hashed[tbl.hash] = true
-  scipnet.data.senders_hashed_reversed[tbl.hash] = scipnet.data.users_reversed[tbl.uuid]
+  scipnet.data.users_hashed[k] = tbl.hash
+  scipnet.data.users_hashed[tbl.hash] = true
+  scipnet.data.users_hashed_reversed[tbl.hash] = scipnet.data.users_reversed[tbl.uuid]
 end
 
 local funcs = {}

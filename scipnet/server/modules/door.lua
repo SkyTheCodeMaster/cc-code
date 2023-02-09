@@ -70,7 +70,7 @@ local accesses = {}
 
 while true do
   local e = {os.pullEvent("network_message")}
-  if e.type == "gps" and scipnet.senders_hashed[e.sender] then
+  if e.type == "gps" and scipnet.users_hashed[e.sender] then
     local pos = vector.new(e.data.x,e.data.y,e.data.z)
     for name,d in pairs(data.doors) do
       local c1 = vector.new(d.bounds[1],d.bounds[2],d.bounds[3])
@@ -79,7 +79,7 @@ while true do
         while #accesses > h-3 do
           table.remove(accesses,1)
         end
-        table.insert(accesses,("%s @ %s: %s"):format(os.date(),name,scipnet.data.senders_hashed_reversed[e.sender]))
+        table.insert(accesses,("%s @ %s: %s"):format(os.date(),name,scipnet.data.users_hashed_reversed[e.sender]))
         scipnet.coro.newCoro(function() open(d) end)
         break
       end
