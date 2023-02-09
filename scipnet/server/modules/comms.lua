@@ -15,6 +15,7 @@ while true do
   local msg = textutils.unserialize(e[5])
   if msg.target == "server" then
     local ok,data = enc.decrypt(msg.data,key)
+    data = textutils.unserialize(data)
     if ok then
     ---@diagnostic disable-next-line: undefined-field
       os.queueEvent("network_message",data.type,data.sender,data.data)
