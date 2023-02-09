@@ -1,0 +1,22 @@
+{
+  "https://pastebin.com/raw/GPzf9JSa": {
+    "path": "libraries/chacha20.lua"
+  },
+  "https://pastebin.com/raw/6UV4qfNF": {
+    "path": "libraries/sha256.lua"
+  },
+  "https://raw.githubusercontent.com/SkyTheCodeMaster/cc-code/main/hypervisor/libraries/coro.lua": {
+    "path": "libraries/coro.lua"
+  },
+  "https://raw.githubusercontent.com/SkyTheCodeMaster/cc-code/main/scipnet/server/encryption.lua": {
+    "path": "libraries/encryption.lua"
+  },
+  "https://raw.githubusercontent.com/SkyTheCodeMaster/cc-code/main/scipnet/client/main.lua": {
+    "path": "startup.lua"
+  },
+  "https://github.com/SkyTheCodeMaster/cc-code/tree/main/scipnet/client/modules": {
+    "path": "modules",
+    "folder": true,
+    "recursive": true
+  }
+}
