@@ -26,8 +26,8 @@ end
 -- @treturn string The HMAC of the message.
 local function split(message)
   local nonce = message:sub(0,12)
-  local data = message:sub(13,-33)
-  local hmac = message:sub(-32,-1)
+  local data = message:sub(13,-65)
+  local hmac = message:sub(-64,-1)
   return nonce,data,hmac
 end
 
@@ -39,7 +39,7 @@ function comms.encrypt(data,key)
   local nonce = generateNonce()
   local tblNonce = {nonce:byte(1,-1)}
   local encData = chacha.crypt(data,key,tblNonce)
-  local hmac = sha.hmac(encData,key)
+  local hmac = sha.hmac(encData,key):toHex()
   return nonce .. encData:toHex() .. hmac
 end
 
@@ -50,7 +50,7 @@ end
 -- @treturn string The decrypted data, or the reason why it couldn't be decrypted. (`"invalid nonce"`, `"invalid hmac"`)
 function comms.decrypt(message,key)
   local nonce,encData,hmac = split(message)
-  local msgHMAC = sha.hmac(encData,key)
+  local msgHMAC = sha.hmac(encData,key):toHex()
   if hmac ~= msgHMAC then
     return false,"invalid hmac"
   elseif recvBadNonces[nonce] then

@@ -40,9 +40,9 @@ f.close()
 local function within(v,c1,c2)
   -- Check if v is within c1 and c2
   return 
-    c1.x >= v.x and v.x >= c2.x and
-    c1.y >= v.y and v.y >= c2.y and
-    c1.z >= v.z and v.z >= c2.z
+    c1.x >= v.x and v.x <= c2.x and
+    c1.y >= v.y and v.y <= c2.y and
+    c1.z >= v.z and v.z <= c2.z
 end
 
 local function open(door)

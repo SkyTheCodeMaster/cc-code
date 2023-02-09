@@ -13,7 +13,9 @@ modem.open(61312)
 while true do
   local e = {os.pullEvent("modem_message")}
   local msg = e[5]
-  local data = enc.decrypt(msg,key)
+  local ok,data = enc.decrypt(msg,key)
+  if ok then
   ---@diagnostic disable-next-line: undefined-field
-  os.queueEvent("network_message",data.type,data.sender,data.data)
+    os.queueEvent("network_message",data.type,data.sender,data.data)
+  end
 end
