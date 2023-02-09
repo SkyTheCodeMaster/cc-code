@@ -1,0 +1,30 @@
+{
+  "https://pastebin.com/raw/GPzf9JSa": {
+    "path": "libraries/chacha20.lua"
+  },
+  "https://pastebin.com/raw/6UV4qfNF": {
+    "path": "libraries/sha256.lua"
+  },
+  "https://pastebin.com/raw/3LfWxRWh": {
+    "path": "libraries/bigfont.lua"
+  },
+  "https://raw.githubusercontent.com/SkyTheCodeMaster/cc-code/main/hypervisor/libraries/coro.lua": {
+    "path": "libraries/coro.lua"
+  },
+  "https://raw.githubusercontent.com/SkyTheCodeMaster/cc-code/main/scipnet/main.lua": {
+    "path": "startup.lua"
+  },
+  "https://raw.githubusercontent.com/SkyTheCodeMaster/cc-code/main/scipnet/data.json": {
+    "path": "data.json"
+  },
+  "https://github.com/SkyTheCodeMaster/cc-code/tree/main/scipnet/libraries": {
+    "path": "libraries",
+    "folder": true,
+    "recursive": true
+  },
+  "https://github.com/SkyTheCodeMaster/cc-code/tree/main/scipnet/modules": {
+    "path": "modules",
+    "folder": true,
+    "recursive": true
+  }
+}
