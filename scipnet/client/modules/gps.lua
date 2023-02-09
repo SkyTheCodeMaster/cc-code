@@ -23,5 +23,11 @@ while true do
   }
   local tPacket = textutils.serialize(packet)
   local encData = enc.encrypt(tPacket,key)
-  modem.transmit(61312,61312,encData)
+  local realPacket = textutils.serialize(
+    {
+      target="server",
+      data=encData
+    }
+  )
+  modem.transmit(61312,61312,realPacket)
 end
