@@ -4,7 +4,7 @@ local modem = peripheral.find("modem")
 local enc = require("libraries.encryption")
 local sha=require("libraries.sha256")
 local keyf = fs.open(".key","r")
-local key = keyf.readAll()
+local key = {keyf.readAll():byte(1,-1)}
 keyf.close()
 local ni = peripheral.wrap("back")
 
