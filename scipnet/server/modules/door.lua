@@ -47,6 +47,7 @@ local function within(v,c1,c2)
 end
 
 local function open(door)
+  door.open = true
   local doorMon = peripheral.wrap(door.monitor)
   local ris = {}
   for _,name in pairs(door.integrators) do
@@ -67,6 +68,7 @@ local function open(door)
   for _,p in pairs(ris) do
     p.setOutput(door.side,false)
   end
+  door.open = false
 end
 local accesses = {}
 
@@ -76,15 +78,17 @@ while true do
     local eData = e[4]
     local pos = vector.new(eData.x,eData.y,eData.z)
     for name,d in pairs(data.doors) do
-      local c1 = vector.new(d.bounds[1],d.bounds[2],d.bounds[3])
-      local c2 = vector.new(d.bounds[4],d.bounds[5],d.bounds[6])
-      if within(pos,c1,c2) then
-        while #accesses > h-3 do
-          table.remove(accesses,1)
+      if not d.open then
+        local c1 = vector.new(d.bounds[1],d.bounds[2],d.bounds[3])
+        local c2 = vector.new(d.bounds[4],d.bounds[5],d.bounds[6])
+        if within(pos,c1,c2) then
+          while #accesses > h-3 do
+            table.remove(accesses,1)
+          end
+          table.insert(accesses,("%s @ %s: %s"):format(os.date(),name,scipnet.data.users_hashed_reversed[e[3]]))
+          scipnet.coro.newCoro(function() open(d) end)
+          break
         end
-        table.insert(accesses,("%s @ %s: %s"):format(os.date(),name,scipnet.data.users_hashed_reversed[e[3]]))
-        scipnet.coro.newCoro(function() open(d) end)
-        break
       end
     end
     win.setVisible(false)
