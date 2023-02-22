@@ -37,6 +37,7 @@ local function process()
     if data and data.name:match("minecraft:[%a_]+_concrete_powder") then
       turtle.select(i)
       while turtle.getItemCount(i) ~= 0 do
+        ---@diagnostic disable-next-line: redefined-local
         local data = turtle.getItemDetail(i)
         if data and data.name:match("minecraft:[%a_]+_concrete$") then
           break
