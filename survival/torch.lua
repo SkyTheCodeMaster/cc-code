@@ -121,6 +121,9 @@ end
 
 
 -- Now we should simply travel along the room and place some torches
+if not parsed.options.grid then
+  parsed.options.grid = 5
+end
 local gridsize = parsed.options.grid+1
 
 -- Check number of torches
