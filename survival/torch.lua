@@ -13,7 +13,7 @@ parser.add_option("torch","The id of the light source.","minecraft:torch")
 parser.add_argument("x", "The X size of the room.", false)
 parser.add_argument("y", "The Y size of the room.", false)
 
-local parsed = parser.parse(args)
+local parsed = parser.parse({...})
 
 if parsed.flags.help then
   error(parser.usage(), 0)
@@ -40,14 +40,16 @@ local function rangefinder(max)
   max = max or 100
   
   local distance = 0
-  while not turtle.detect() then
+  while not turtle.detect() do
     distance = distance + 1
     turtle.forward()
   end
   
-  for i=0,distance do
+  for i=1,distance do
     turtle.back()
   end
+
+  print("[RANGE] " .. distance)
 
   return distance
 end
@@ -63,6 +65,7 @@ local function get_room_size(max)
   return x,y
 end
 
+local torches_placed = 0
 local function place_torch()
   if turtle.detectDown() then
     -- Something is already here!
@@ -74,6 +77,7 @@ local function place_torch()
   if item and item.name == parsed.options.torch then
     turtle.select(i)
     turtle.placeDown()
+    torches_placed = torches_placed + 1
     return
   end
 
@@ -82,6 +86,8 @@ local function place_torch()
     if item and item.name == parsed.options.torch then
       turtle.select(i)
       turtle.placeDown()
+      torches_placed = torches_placed + 1
+      break
     end
   end
 end
@@ -106,6 +112,12 @@ else
   room_x,room_y = parsed.arguments.x,parsed.arguments.y
 end
 
+local function print_progress()
+  local fuel = turtle.getFuelLevel()
+  local message = "Fuel:"..fuel..";"..torches_placed.."/"..torches_required
+  print(message)
+end
+
 
 
 -- Now we should simply travel along the room and place some torches
@@ -119,9 +131,11 @@ if total_torches < torches_required then
   print("Missing " .. torches_required - total_torches .. " torches! Will continue, but will run out eventually!")
 end
 
+
 if auto_mode == "rectangle" then
   -- start at the corner, place a torch
   place_torch()
+  print_progress()
   turtle.turnRight()
   for _y=1,room_y do
     -- move forward and place torches
@@ -131,6 +145,7 @@ if auto_mode == "rectangle" then
         turtle.forward()
         if _x % gridsize == 0 then
           place_torch()
+          print_progress()
         end
       end
       -- This is terrible for fuel efficiency, but whatever
