@@ -8,12 +8,23 @@ parser.add_flag("a","auto","Automatically determine the size of the room. Pass X
 parser.add_flag("c","circle","Runs mapping to determine the size of a non-rectangular room.")
 parser.add_flag("h","help", "Print this help message.")
 parser.add_option("grid","The amount of space in between torches.",5)
-parser.add_option("maxsize","The farthest the rangefinder will go for automatically determining the room's size",100)
+parser.add_option("maxsize","The farthest the rangefinder will go for automatically determining the room's size",128)
 parser.add_option("torch","The id of the light source.","minecraft:torch")
 parser.add_argument("x", "The X size of the room.", false)
 parser.add_argument("y", "The Y size of the room.", false)
 
 local parsed = parser.parse({...})
+
+-- set defaults
+if not parsed.options.grid then
+  parsed.options.grid = 5
+end
+if not parsed.options.maxsize then
+  parsed.options.maxsize = 128
+end
+if not parsed.options.torch then
+  parsed.options.torch = "minecraft:torch"
+end
 
 if parsed.flags.help then
   error(parser.usage(), 0)
@@ -75,7 +86,6 @@ local function place_torch()
   -- Shortcut: check current slot first
   local item = turtle.getItemDetail()
   if item and item.name == parsed.options.torch then
-    turtle.select(i)
     turtle.placeDown()
     torches_placed = torches_placed + 1
     return
@@ -142,11 +152,11 @@ if auto_mode == "rectangle" then
   place_torch()
   print_progress()
   turtle.turnRight()
-  for _y=1,room_y do
+  for _y=0,room_y do
     -- move forward and place torches
     if _y % gridsize == 0 then
       turtle.turnLeft()
-      for _x=1,room_x do
+      for _x=0,room_x do
         turtle.forward()
         if _x % gridsize == 0 then
           place_torch()
