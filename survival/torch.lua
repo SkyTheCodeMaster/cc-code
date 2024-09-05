@@ -112,11 +112,7 @@ else
   room_x,room_y = parsed.arguments.x,parsed.arguments.y
 end
 
-local function print_progress()
-  local fuel = turtle.getFuelLevel()
-  local message = "Fuel:"..fuel..";"..torches_placed.."/"..torches_required
-  print(message)
-end
+
 
 
 
@@ -129,6 +125,12 @@ local gridsize = parsed.options.grid+1
 -- Check number of torches
 local total_torches = get_total_torches()
 local torches_required = (room_x / gridsize) * (room_y / gridsize)
+
+local function print_progress()
+  local fuel = turtle.getFuelLevel()
+  local message = "Fuel:"..fuel..";"..torches_placed.."/"..torches_required
+  print(message)
+end
 
 if total_torches < torches_required then
   print("Missing " .. torches_required - total_torches .. " torches! Will continue, but will run out eventually!")
