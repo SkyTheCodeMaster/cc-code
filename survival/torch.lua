@@ -27,7 +27,7 @@ if not parsed.options.torch then
 end
 
 if parsed.flags.help then
-  error(parser.usage(), 0)
+  textutils.pagedPrint(parser.usage())
 end
 
 if not parsed.flags.auto and (not parsed.arguments.x or not parsed.arguments.y) then
