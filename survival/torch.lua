@@ -134,7 +134,7 @@ local gridsize = parsed.options.grid+1
 
 -- Check number of torches
 local total_torches = get_total_torches()
-local torches_required = (room_x / gridsize) * (room_y / gridsize)
+local torches_required = ((room_x / gridsize)+1) * ((room_y / gridsize)+1)
 
 local function print_progress()
   local fuel = turtle.getFuelLevel()
@@ -149,7 +149,6 @@ end
 
 if auto_mode == "rectangle" then
   -- start at the corner, place a torch
-  place_torch()
   print_progress()
   turtle.turnRight()
   for _y=0,room_y do
@@ -157,11 +156,11 @@ if auto_mode == "rectangle" then
     if _y % gridsize == 0 then
       turtle.turnLeft()
       for _x=0,room_x do
-        turtle.forward()
         if _x % gridsize == 0 then
           place_torch()
           print_progress()
         end
+        turtle.forward()
       end
       -- This is terrible for fuel efficiency, but whatever
       for _=1,room_x do
