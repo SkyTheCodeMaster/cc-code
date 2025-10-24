@@ -163,7 +163,7 @@ if auto_mode == "rectangle" then
         turtle.forward()
       end
       -- This is terrible for fuel efficiency, but whatever
-      for _=1,room_x do
+      for _=0,room_x do
         turtle.back()
       end
       turtle.turnRight()
