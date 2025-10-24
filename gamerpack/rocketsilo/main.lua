@@ -14,13 +14,13 @@ if not fs.exists("config.lua") then
 local cfg = {}
 
 cfg.alarm_relay = "redstone_relay_0"
-cfg.alarm_side = "right"
+cfg.alarm_relay_side = "right"
 
 cfg.door_relay = "redstone_relay_1"
-cfg.door_side = "top"
+cfg.door_relay_side = "top"
 
-cfg.door_open_time = 33
-cfg.door_close_time = 33
+cfg.door_open_time = 16
+cfg.door_close_time = 16
 cfg.launch_window = 30
 cfg.safety_window = 15
 
@@ -46,7 +46,7 @@ local launch_monitor = peripheral.wrap(config.launch_monitor)
 local button_monitor = peripheral.wrap(config.button_monitor)
 
 launch_monitor.setTextScale(0.5)
-local launch_window = window.create(launch_monitor, 1, 1, launch_monitor.size())
+local launch_window = window.create(launch_monitor, 1, 1, launch_monitor.getSize())
 
 local function countdown_to_str(time)
   -- Take a float, return a padded string.
@@ -70,9 +70,9 @@ local function display_countdown(time, text)
   local function handle_display()
     while true do
       -- Draw the text and number on the display
-      local remaining_time = (os.epoch("utc")/1000) / target_time
+      local remaining_time =  target_time - (os.epoch("utc")/1000)
       local display_time = countdown_to_str(tonumber(string.format("%.1f", remaining_time)))
-      local width, height = launch_monitor.size()
+      local width, height = launch_monitor.getSize()
       local text_y = math.floor((height*0.33)+0.5)
       local number_y = math.floor((height*0.66)+0.5)
       launch_window.setVisible(false)
