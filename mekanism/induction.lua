@@ -236,8 +236,8 @@ local function update_objects()
   local storage_text = humanize_energy(stats.energy / 2.5) .. " / " .. humanize_energy(stats.energy_max / 2.5) .. "\n" .. time_until
   energy_tb.text = storage_text
 
-  local in_text = humanize_energy(stats.input) .. " / " .. humanize_energy(stats.transfer_limit)
-  local out_text = humanize_energy(stats.output) .. " / " .. humanize_energy(stats.transfer_limit)
+  local in_text = humanize_energy(stats.input / 2.5) .. " / " .. humanize_energy(stats.transfer_limit / 2.5)
+  local out_text = humanize_energy(stats.output / 2.5) .. " / " .. humanize_energy(stats.transfer_limit / 2.5)
   energy_in_tb.text = in_text
   energy_out_tb.text = out_text
 end
