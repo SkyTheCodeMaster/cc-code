@@ -229,6 +229,10 @@ local function update_objects()
   local timestring = time_string(abs_seconds)
   local time_until = timestring .. (filling and " until full" or " until empty")
 
+  if seconds == 0 then
+    time_until = "Perfectly balanced... as all things should be"
+  end
+
   local storage_text = humanize_energy(stats.energy / 2.5) .. " / " .. humanize_energy(stats.energy_max / 2.5) .. "\n" .. time_until
   energy_tb.text = storage_text
 
